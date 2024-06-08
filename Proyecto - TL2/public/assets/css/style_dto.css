@@ -2,7 +2,7 @@
   scroll-behavior: smooth;
 }
 
-#formulario {
+.container {
   display: none;
 }
 
@@ -112,7 +112,7 @@ header span {
   left: -300px; /* Oculta el menú fuera de la pantalla */
   transition: left 0.3s ease;
   top: 0;
-  background-color:#234567; /* Fondo del menú */
+  background-color: #234567; /* Fondo del menú */
   z-index: 1;
 }
 
@@ -245,7 +245,7 @@ form button:disabled {
 }
 
 #datosTable-container {
-  margin-bottom: 100px; /* Agregar un margen inferior para crear espacio entre la tabla y el footer */
+  padding-top: 30px;
   max-width: 1300px; /* Ancho máximo deseado para la tabla */
   margin: 0 auto; /* Centrar el contenedor en la página */
   overflow-x: auto;
@@ -376,8 +376,6 @@ footer {
     min-width: 30px;
   }
 }
-
-
 
 @media only screen and (max-width: 400px) {
   .container {

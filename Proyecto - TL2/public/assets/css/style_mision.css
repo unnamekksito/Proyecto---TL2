@@ -308,7 +308,7 @@ header span {
 /* Estilos para el contenido de nuestro equipo */
 .card-container {
   width: 100%;
-  margin: 0 auto;
+  margin: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -317,8 +317,9 @@ header span {
   background-image: linear-gradient(
     to bottom,
     rgba(0, 93, 158, 0.5) 0%,
-    white 100%,
-    #0077b6 100%
+    /* Azul claro semi-transparente al principio */ white 50%,
+    /* Blanco a la mitad */ #0077b6 100%
+      /* Azul claro semi-transparente al final */
   );
   color: #fff;
   text-align: center;
@@ -334,7 +335,15 @@ header span {
 
 .cards .card:nth-child(4),
 .cards .card:nth-child(5) {
-  justify-items: center;
+  grid-column: span 1 / auto;
+}
+
+.cards .card:nth-child(4) {
+  grid-column-start: 0; /* Comienza en la segunda columna */
+}
+
+.cards .card:nth-child(5) {
+  grid-column-start: 3; /* Comienza en la tercera columna */
 }
 
 .card-container .titlebajo {
@@ -344,7 +353,7 @@ header span {
   background-color: rgba(0, 93, 158, 0.5);
   padding: 10px 20px;
   border-radius: 10px;
-  width: 100%;
+  width: 50%;
   text-align: center;
 }
 
@@ -356,7 +365,8 @@ header span {
   align-items: center;
   width: 250px;
   height: 350px;
-  padding: 30px 25px;
+  padding: 20px;
+  margin: 0 10px 30px; /* Ajustar el margen */
   background: #fff;
   box-shadow: 0px 7px 10px rgba(0, 0, 0, 0.5);
   transition: all 0.5s ease;
@@ -434,6 +444,7 @@ header span {
   font-size: 20px;
   font-family: "Lobster", sans-serif;
   color: #fff;
+  margin-bottom: 100px;
   background-color: #234567;
   border: none;
   border-radius: 5px;
@@ -460,6 +471,7 @@ footer {
   font-family: "League Gothic", sans-serif;
   font-size: 20px;
   margin-top: 0;
+  width: 100%;
 }
 
 .social-icons {

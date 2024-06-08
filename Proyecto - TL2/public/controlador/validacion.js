@@ -1,4 +1,3 @@
-
 // Función para habilitar o deshabilitar los campos del formulario y el botón de guardar
 function toggleFormFields(enable) {
   const fields = [
@@ -9,7 +8,7 @@ function toggleFormFields(enable) {
     "genero",
     "fechaNacimiento",
     "correo",
-    "level"
+    "level",
   ];
   fields.forEach((field) => {
     document.getElementById(field).disabled = !enable;
@@ -54,8 +53,10 @@ function ValidarYEditarDatos() {
   const fechaNacimiento = document.getElementById("fechaNacimiento").value;
   const email = document.getElementById("correo").value.trim();
   const password = document.getElementById("password").value.trim();
-  const level = document.getElementById("level").options[document.getElementById("level").selectedIndex].value;
-
+  const level =
+    document.getElementById("level").options[
+      document.getElementById("level").selectedIndex
+    ].value;
 
   let isValid = true; // Variable para indicar si el formulario es válido
 
@@ -145,7 +146,7 @@ function ValidarYEditarDatos() {
       fechaNacimiento: fechaNacimiento,
       email: email,
       password: password,
-      level:level
+      level: level,
     };
     EnviarDatosEditadosAlServidor(datos, email);
   }
@@ -250,7 +251,7 @@ async function BorrarDato(email) {
 
 // Función para habilitar los campos cuando se hace clic en el botón de editar
 async function HabilitarCampos(email) {
-  document.getElementById('formulario').style.display = 'block';
+  document.getElementById("formulario").style.display = "block";
   try {
     // Obtener los datos del servidor
     const response = await fetch("/obtenerDatosTabla");
@@ -273,11 +274,11 @@ async function HabilitarCampos(email) {
     document.getElementById("username").value = datoAEditar.username;
     document.getElementById("password").value = datoAEditar.password;
     document.getElementById("genero").value = datoAEditar.gender;
-    document.getElementById('level').value = datoAEditar.level;
+    document.getElementById("level").value = datoAEditar.level;
 
     // Crear un objeto Date utilizando el valor de fechaNacimiento
     const fechaNacimiento = new Date(datoAEditar.birthDate);
-    console.log(datoAEditar.birthDate)
+    console.log(datoAEditar.birthDate);
 
     // Extraer año, mes y día
     const year = fechaNacimiento.getFullYear();
@@ -287,7 +288,7 @@ async function HabilitarCampos(email) {
     // Construir la cadena de texto en el formato esperado
     const formattedDate = `${year}-${month}-${day}`;
 
-    console.log(formattedDate)
+    console.log(formattedDate);
     // Asignar el valor formateado al campo de fecha
     document.getElementById("fechaNacimiento").value = formattedDate;
 
