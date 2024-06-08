@@ -19,17 +19,34 @@
             <img src="../assets/images/software-login.png" alt="Logo" />
             <div class="top-header">
                 <span>BlogiSoft</span>
+                <span>"Codificando el futuro, un byte a la vez."</span>
             </div>
-            <div class="buttons">
+            <div class="register-section">
+                <span>Únete hoy</span>
+                <button id="register-button">Registrarse</button>
+            </div>
+            <div class="separator">
+                <span>------- o -------</span>
+            </div>
+            <div class="login-section">
+                <span>Ingresa si ya tienes cuenta</span>
                 <button id="login-button">Login</button>
-                <button id="register-button">Registro</button>
             </div>
             <div id="form-container">
-                <!-- Aqui se pone segun el boton seleccionado -->
+                <!-- Aquí se pondrá según el botón seleccionado -->
             </div>
         </div>
     </div>
     <script src="../controlador/logreg.js"></script>
+    <script>
+        document.getElementById('login-button').addEventListener('click', function() {
+            document.getElementById('form-container').scrollIntoView();
+        });
+
+        document.getElementById('register-button').addEventListener('click', function() {
+            document.getElementById('form-container').scrollIntoView();
+        });
+    </script>
 </body>
 
 </html>

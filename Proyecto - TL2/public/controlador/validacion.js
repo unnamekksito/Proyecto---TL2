@@ -1,3 +1,4 @@
+
 // Función para habilitar o deshabilitar los campos del formulario y el botón de guardar
 function toggleFormFields(enable) {
   const fields = [
@@ -249,6 +250,7 @@ async function BorrarDato(email) {
 
 // Función para habilitar los campos cuando se hace clic en el botón de editar
 async function HabilitarCampos(email) {
+  document.getElementById('formulario').style.display = 'block';
   try {
     // Obtener los datos del servidor
     const response = await fetch("/obtenerDatosTabla");
