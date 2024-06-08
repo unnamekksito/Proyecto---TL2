@@ -44,7 +44,6 @@
     <h1>Formulario de ingreso de personas</h1>
   </header>
 
-
   <div class="container">
     <h1>Registro</h1><br>
     <form id="formulario">
@@ -63,7 +62,7 @@
         <option value="User">Usuario</option>
         <option value="Admin">Administrador</option>
       </select>
-      <button type="submit" onclick="ValidarYEditarDatos()">Guardar</button>
+      <button type="submit" onclick="ValidarYEditarDatos()" disabled>Guardar</button>
     </form>
   </div>
 
@@ -83,7 +82,7 @@
         </tr>
       </thead>
       <tbody id="datosBody">
-        <!-- Aquí se insertarán dinámicamente los datos -->
+      
       </tbody>
     </table>
   </div>

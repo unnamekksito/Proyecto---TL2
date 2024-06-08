@@ -33,29 +33,46 @@ span {
     font-size: larger;
 }
 
-.buttons {
+.register-section,
+.login-section {
     margin-bottom: 20px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
-.buttons button {
+.register-section span,
+.login-section span {
+    color: aliceblue;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.separator {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    color: aliceblue;
+    font-size: 20px;
+}
+
+.register-section button,
+.login-section button {
     padding: 10px 20px;
     background-color: #007bff;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-right: 10px;
     transition: background-color 0.3s ease;
 }
 
-.buttons button:hover {
+.register-section button:hover,
+.login-section button:hover {
     background-color: #0056b3;
 }
 
 /* Estilos para los formularios */
-
 .form h2 {
     color: aliceblue;
     font-size: 30px;
@@ -65,7 +82,7 @@ span {
     font-size: larger;
 }
 
-.form button{
+.form button {
     display: block;
     margin: 50px;
 }
@@ -96,7 +113,6 @@ span {
 
 .inline-fields .input-field {
     width: 42%; /* Ajusta el ancho para que haya espacio entre los campos */
-    
 }
 
 i {
