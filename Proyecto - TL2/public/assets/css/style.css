@@ -1,11 +1,10 @@
-
 :root {
   scroll-behavior: smooth;
 }
 
 /* Estilos generales */
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: "Roboto", sans-serif, Arial;
   margin: 0;
   padding: 0;
   text-align: center;
@@ -161,33 +160,34 @@ header span {
   transition: 0.5s;
 }
 
-.slide .item:nth-child(1),.slide .item:nth-child(2){
+.slide .item:nth-child(1),
+.slide .item:nth-child(2) {
   top: 0;
   left: 0;
-  transform: translate(0,0);
+  transform: translate(0, 0);
   border-radius: 0;
   width: 100%;
   height: 100%;
 }
 
-.slide .item:nth-child(3){
+.slide .item:nth-child(3) {
   left: 50%;
 }
 
-.slide .item:nth-child(4){
+.slide .item:nth-child(4) {
   left: calc(50% + 210px);
 }
 
-.slide .item:nth-child(5){
+.slide .item:nth-child(5) {
   left: calc(50% + 430px);
 }
 
-.slide .item:nth-child(n + 6){
+.slide .item:nth-child(n + 6) {
   left: calc(50% + 650px);
   opacity: 0;
 }
 
-.item .content{
+.item .content {
   position: absolute;
   top: 50%;
   left: 100px;
@@ -195,15 +195,16 @@ header span {
   text-align: left;
   color: #eee;
   transform: translate(0, -50%);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   display: none;
 }
 
-.slide .item:nth-child(2) .content{
+.slide .item:nth-child(2) .content {
   display: block;
 }
 
-.content .name{
+.content .name {
   font-size: 40px;
   text-transform: uppercase;
   font-weight: bold;
@@ -212,19 +213,19 @@ header span {
   font-family: "League Gothic", sans-serif;
 }
 
-.content .des{
+.content .des {
   margin-top: 10px;
   margin-bottom: 20px;
   opacity: 0;
   animation: animate 1s ease-in-out 0.3s forwards;
 }
 
-@keyframes animate{
-  from{
+@keyframes animate {
+  from {
     opacity: 0;
-    transform: (0,100px);
+    transform: (0, 100px);
   }
-  to{
+  to {
     opacity: 1;
     transform: translate(0);
   }
@@ -238,7 +239,7 @@ header span {
   z-index: 1; /* Asegura que los botones estén sobre los items */
 }
 
-.button button{
+.button button {
   width: 40px;
   height: 35px;
   border-radius: 8px;
@@ -249,7 +250,7 @@ header span {
   transition: 0.3s;
 }
 
-.button button:hover{
+.button button:hover {
   background: #ababab;
   color: #fff;
 }
@@ -302,6 +303,147 @@ header span {
 
 .btn:hover {
   background-color: #003366; /* Cambiar el color de fondo al pasar el mouse */
+}
+
+/* Estilos para el contenido de nuestro equipo */
+.card-container {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  gap: 30px;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(0, 93, 158, 0.5) 0%,
+    white 100%,
+    #0077b6 100%
+  );
+  color: #fff;
+  text-align: center;
+  font-family: "Lobster";
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  justify-items: center;
+}
+
+.cards .card:nth-child(4),
+.cards .card:nth-child(5) {
+  justify-items: center;
+}
+
+.card-container .titlebajo {
+  font-size: 40px;
+  color: darkblue;
+  margin-top: 20px;
+  background-color: rgba(0, 93, 158, 0.5);
+  padding: 10px 20px;
+  border-radius: 10px;
+  width: 100%;
+  text-align: center;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 250px;
+  height: 350px;
+  padding: 30px 25px;
+  background: #fff;
+  box-shadow: 0px 7px 10px rgba(0, 0, 0, 0.5);
+  transition: all 0.5s ease;
+  border-radius: 45px;
+  text-align: center;
+}
+
+.card:hover {
+  transform: translateY(20px);
+}
+
+.card:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    #0077b6 0%,
+    rgba(0, 93, 158, 0.5) 100%
+  );
+  transition: all 0.5s;
+  opacity: 0;
+  border-radius: 40px;
+}
+
+.card:hover:after {
+  opacity: 1;
+}
+
+.card > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 40px;
+}
+
+.card .info {
+  position: relative;
+  z-index: 3;
+  color: #fff;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.5s;
+  justify-content: center;
+}
+
+.card:hover .info {
+  opacity: 1;
+  transform: translateY(0px);
+}
+
+.card .info h1 {
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+.card .info p {
+  letter-spacing: 1px;
+  font-size: 0.9rem;
+  margin: 10px 0 25px;
+  line-height: 130%;
+}
+
+.contact-button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-top: 20px;
+  font-size: 20px;
+  font-family: "Lobster", sans-serif;
+  color: #fff;
+  background-color: #234567;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.contact-button:hover {
+  background-color: #005f87;
+  transform: scale(1.05);
 }
 
 /* Estilos del pie de página */
