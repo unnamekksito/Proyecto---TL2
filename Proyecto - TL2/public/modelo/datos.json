@@ -58,5 +58,15 @@
     "birthDate": "1997-07-17",
     "password": "fem123",
     "level": "User"
+  },
+  {
+    "name": "Juan",
+    "lastName": "Atehortua",
+    "username": "ass",
+    "email": "ass@gmail.com",
+    "gender": "Masculino",
+    "birthDate": "2002-07-17",
+    "password": "ass123",
+    "level": "User"
   }
 ]

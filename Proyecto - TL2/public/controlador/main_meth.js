@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const userLevel = localStorage.getItem('userLevel');
 
   // Obtener el enlace de "Usuarios"
-  const usersLink = document.querySelector('.menu ul li:nth-child(2)');
+  const usersLink = document.querySelector('.left-buttons a:nth-child(2)');
 
   // Si el usuario es un administrador (nivel 'Admin'), mostrar el enlace de "Usuarios"
   if (userLevel === 'Admin') {
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-const menuLinks = document.querySelectorAll(".menu a");
+const menuLinks = document.querySelectorAll(".left-buttons a, .right-button a");
 const parallaxImage = document.querySelector(".parallax-image");
 
 menuLinks.forEach((link) => {

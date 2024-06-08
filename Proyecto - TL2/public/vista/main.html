@@ -12,31 +12,26 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    
 </head>
 
 <body>
-
     <div class="logout-button animate__animated animate__bounce">
         <a href="#" onclick="cerrarSesion()"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
     </div>
 
-    <div class="title-container">
+    <header class="title-container">
+        <div class="left-buttons">
+            <a href="../vista/mision.html">Acerca de nosotros</a>
+            <a href="../vista/dtoPersonal.html">Usuarios</a>
+        </div>
         <div class="title">
             <h1 class="animate__animated animate__bounce">BlogiSoft</h1>
             <img src="../assets/images/software-login.png" alt="Logo" class="animate__animated animate__bounce">
         </div>
-    </div>
-
-    <div class="container">
-        <nav class="menu animate__animated animate__bounce">
-            <ul>
-                <li><a href="../vista/mision.html">Mision y vision</a></li>
-                <li><a href="../vista/dtoPersonal.html">Usuarios</a></li>
-                <li><a href="../vista/us.html">Nosotros</a></li>
-            </ul>
-        </nav>
-    </div>
+        <div class="right-button">
+            <a href="../vista/blog.html">Acceso al Blog!</a>
+        </div>
+    </header>
 
     <div class="parallax-container">
         <img src="../assets/images/fondo-main.svg" alt="Imagen de fondo" class="parallax-image">
