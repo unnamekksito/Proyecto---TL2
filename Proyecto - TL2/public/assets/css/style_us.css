@@ -1,0 +1,406 @@
+
+:root {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+  text-align: center;
+}
+
+img {
+  max-width: 100%;
+}
+
+header {
+  position: relative;
+  background-image: linear-gradient(
+    to bottom,
+    #0077b6 0%,
+    rgba(0, 93, 158, 0.5) 100%
+  );
+  text-align: center;
+  padding: 20px 0;
+  margin-bottom: 0;
+}
+
+header h1 {
+  font-size: 40px;
+  font-weight: 600;
+  margin: 0;
+  color: lavender;
+  font-family: "Lobster";
+}
+
+header span {
+  font-size: 40px;
+  font-weight: 600;
+  margin: 0;
+  color: lavender;
+  font-family: "Lobster";
+}
+
+/* Estilos para el botón "Home" */
+.home-button {
+  position: absolute;
+  top: 30px; /* Alinea verticalmente el botón con el menú */
+  right: 20px; /* Ajusta la distancia desde la derecha */
+  z-index: 999;
+}
+
+.home-button a {
+  text-decoration: none;
+  font-size: 40px;
+  font-weight: 600;
+  margin: 0;
+  color: lavender;
+  font-family: "Lobster";
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.home-button a:hover {
+  background-color: white;
+  color: #033c7c;
+}
+
+/* Estilos del menú hamburguesa */
+.menu {
+  border: 0;
+  background-color: transparent;
+  margin: 20px;
+  cursor: pointer;
+  z-index: 1000;
+  position: absolute;
+  top: 20px; /* Ajusta la distancia desde la parte superior */
+  left: 20px; /* Ajusta la distancia desde la izquierda */
+  font-size: 30px; /* Aumenta el tamaño del ícono */
+  color: lavender; /* Color del ícono */
+  display: flex;
+  align-items: center;
+}
+
+.menu.open {
+  position: fixed;
+}
+
+.menu span {
+  margin-left: 10px; /* Espacio entre el icono y el texto */
+}
+
+.menu .fas.fa-times {
+  display: none;
+}
+
+.menu.open .fas.fa-bars {
+  display: none;
+}
+
+.menu.open .fas.fa-times {
+  display: inline;
+}
+
+.navbar {
+  position: fixed;
+  height: 100%;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Cambiado de center a flex-start */
+  left: -300px; /* Oculta el menú fuera de la pantalla */
+  transition: left 0.3s ease;
+  top: 0;
+  background-color:#234567; /* Fondo del menú */
+  z-index: 1;
+}
+
+.navbar.open {
+  left: 0; /* Muestra el menú cuando está abierto */
+}
+
+.nava {
+  display: flex;
+  flex-direction: column;
+  background-color: #234567;
+  justify-content: space-between;
+  height: 100%;
+  padding: 150px 0px;
+  list-style: none; /* Quita los puntos de lista */
+}
+
+.nava li {
+  font-size: 40px;
+  margin: 10px 20px; /* Ajuste de margen para alinear a la izquierda */
+}
+
+.nava li a {
+  font-family: "Lobster";
+  color: lavender; /* Cambia el color de las opciones del menú a lavender */
+  text-align: left; /* Alinea el texto a la izquierda */
+  text-decoration: none;
+}
+
+.nava li a:hover {
+  color: #fff;
+}
+
+/* Estilos del slider */
+.slider-container {
+  display: flex;
+  position: relative;
+  margin: 0 auto;
+  width: 100%; /* Ajusta el ancho del contenedor al 100% */
+  max-width: 200px; /* Ancho máximo del contenedor igual al ancho de las imágenes */
+  height: auto; /* Altura automática para adaptarse al tamaño de las imágenes */
+  overflow: hidden;
+  padding-left: 50px;
+  z-index: 1; /* Añadido para asegurar que el slider esté detrás del menú */
+}
+
+.slider {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: calc(100% - 50px);
+  overflow: hidden;
+}
+
+.slider img {
+  width: 170px;
+  height: auto;
+  fill: #000;
+  transition: fill 0.3s ease;
+}
+
+.prev,
+.next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.prev {
+  left: 0;
+}
+
+.next {
+  right: 0;
+}
+
+/* Estilos para el contenido debajo del header */
+.container {
+  max-width: 150%; /* Cambia el máximo ancho al 100% */
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 40px;
+  gap: 30px;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(0, 93, 158, 0.5) 0%,
+    /* Azul claro semi-transparente al principio */ white 50%,
+    /* Blanco a la mitad */ #0077b6 100%
+      /* Azul claro semi-transparente al final */
+  );
+  color: #fff;
+  text-align: center;
+  font-family: "Lobster";
+}
+
+.cards {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.container .titlebajo {
+  font-size: 40px;
+  color: darkblue;
+  margin-top: 20px; /* Espaciado adicional encima del título */
+  background-color: rgba(0, 93, 158, 0.5); /* Fondo semitransparente */
+  padding: 10px 20px; /* Espaciado dentro del cuadro del título */
+  border-radius: 10px; /* Bordes redondeados para el cuadro */
+  width: 100%;
+  text-align: center;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 350px;
+  height: 500px;
+  padding: 30px 25px;
+  background: #fff;
+  box-shadow: 0px 7px 10px rgba(0, 0, 0, 0.5);
+  transition: all 0.5s ease;
+  border-radius: 45px;
+  text-align: center;
+}
+
+.card:hover {
+  transform: translateY(20px);
+}
+
+.card:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    #0077b6 0%,
+    rgba(0, 93, 158, 0.5) 100%
+  );
+  transition: all 0.5s;
+  opacity: 0;
+  border-radius: 40px;
+}
+
+.card:hover:after {
+  opacity: 1;
+}
+
+.card > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 40px;
+}
+
+.card .info {
+  position: relative;
+  z-index: 3;
+  color: #fff;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.5s;
+  justify-content: center;
+}
+
+.card:hover .info {
+  opacity: 1;
+  transform: translateY(0px);
+}
+
+.card .info h1 {
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+.card .info p {
+  letter-spacing: 1px;
+  font-size: 0.9rem;
+  margin: 10px 0 25px;
+  line-height: 130%;
+}
+
+.contact-button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-top: 20px;
+  font-size: 20px;
+  font-family: "Lobster", sans-serif;
+  color: #fff;
+  background-color: #234567;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.contact-button:hover {
+  background-color: #005f87;
+  transform: scale(1.05);
+}
+
+/* Estilos del pie de página */
+footer {
+  background-image: linear-gradient(
+    to bottom,
+    #0077b6 0%,
+    /* Azul más claro en la parte superior */ rgba(0, 93, 158, 0.5) 100%
+      /* Azul más oscuro en la parte inferior con una opacidad del 50% */
+  );
+  color: lavenderblush;
+  text-align: center;
+  padding: 20px;
+  font-family: "League Gothic", sans-serif;
+  font-size: 20px;
+  margin-top: 0;
+}
+
+.social-icons {
+  margin-top: 10px;
+}
+
+.social-icons a {
+  color: #fff;
+  margin: 0 10px;
+  font-size: 24px;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.social-icons a:hover {
+  color: #ddd;
+}
+
+/* Media Queries */
+@media screen and (max-width: 768px) {
+  header h1 {
+    font-size: 1.5rem;
+  }
+  .respmenu {
+    min-height: auto; /* Ajusta la altura del menú */
+  }
+  .respmenu .fa-bars,
+  .respmenu .fa-times {
+    font-size: 32px; /* Reducir el tamaño de los iconos */
+  }
+  .respmenu a {
+    padding: 8px 16px; /* Ajustar el espaciado entre elementos del menú */
+  }
+  .slider img {
+    width: 80px; /* Reducir el tamaño de las imágenes */
+    height: auto; /* Mantener la proporción */
+  }
+  .container {
+    max-width: 100%; /* Ajustar el ancho máximo */
+    padding: 10px; /* Ajustar el padding */
+  }
+  footer {
+    padding: 10px; /* Ajustar el padding */
+  }
+}
+
+@media screen and (max-width: 576px) {
+  header h1 {
+    font-size: 1.2rem;
+  }
+
+  .respmenu a {
+    padding: 5px 8px;
+    font-size: 1rem;
+    border-bottom: 1px solid #456789;
+    max-width: 200px;
+    min-width: 30px;
+  }
+}

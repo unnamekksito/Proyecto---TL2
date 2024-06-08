@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Mateo",
+    "lastName": "Berrio",
+    "username": "Math",
+    "email": "mateo@gmail.com",
+    "gender": "Masculino",
+    "birthDate": "1999-02-18",
+    "password": "mateo123",
+    "level": "User"
+  },
+  {
+    "name": "X",
+    "lastName": "Yz",
+    "username": "XYZ",
+    "email": "XYZ@gmail.com",
+    "gender": "Masculino",
+    "birthDate": "2001-01-01",
+    "password": "math123",
+    "level": "User"
+  },
+  {
+    "name": "Manolo",
+    "lastName": "Pajaro",
+    "username": "Manolito",
+    "email": "manolo@gmail.com",
+    "gender": "Masculino",
+    "birthDate": "1999-09-19",
+    "password": "prog123",
+    "level": "User"
+  },
+  {
+    "name": "Emanuel",
+    "lastName": "Ocampo",
+    "username": "PedroPascal",
+    "email": "pedro@gmail.com",
+    "gender": "Masculino",
+    "birthDate": "2004-12-18",
+    "password": "adios123",
+    "level": "Admin"
+  },
+  {
+    "name": "Harold",
+    "lastName": "Hoyos",
+    "username": "unnamekk",
+    "email": "harold@gmail.com",
+    "gender": "Masculino",
+    "birthDate": "2005-03-14",
+    "password": "hola123",
+    "level": "Admin"
+  },
+  {
+    "name": "Killian",
+    "lastName": "Mbappe",
+    "username": "Trapo",
+    "email": "fem@gmail.com",
+    "gender": "Masculino",
+    "birthDate": "1997-07-17",
+    "password": "fem123",
+    "level": "User"
+  }
+]

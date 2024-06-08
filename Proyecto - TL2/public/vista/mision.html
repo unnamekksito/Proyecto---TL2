@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mision y vision</title>
+  <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=League+Gothic&display=swap">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+  <header>
+    <div class="home-button">
+      <a href="../vista/main.html"><i class="fas fa-home"></i> Home</a>
+    </div>
+
+    <button class="menu">
+      <i class="fas fa-bars"></i>
+      <i class="fas fa-times"></i> <!-- Añadido -->
+      <span>Menú</span>
+    </button>
+    <nav class="navbar">
+      <ul class="nava">
+        <li><a href="#container">Mision y vision</a></li>
+        <li><a href="../vista/dtoPersonal.html" id="Registro">Registro</a></li>
+        <li><a href="../vista/us.html">Nosotros</a></li>
+      </ul>
+    </nav>
+
+    <div class="slider-container">
+      <div class="slide">
+        <div class="item" style="background-image: url(/assets/slider/1.svg);">
+          <div class="content">
+            <div class="name"> Somos HarmanuSoft!</div>
+            <div class="des"> Innovación digital para tu empresa.</div>
+          </div>
+        </div>
+
+        <div class="item" style="background-image: url(/assets/slider/2.svg);">
+          <div class="content">
+            <div class="name">Somos HarmanuSoft!</div>
+            <div class="des">Transforma tu negocio con HarmanuSoft.</div>
+          </div>
+        </div>
+
+        <div class="item" style="background-image: url(/assets/slider/3.svg);">
+          <div class="content">
+            <div class="name">Somos HarmanuSoft!</div>
+            <div class="des">Software a la medida de tus necesidades</div>
+          </div>
+        </div>
+
+        <div class="item" style="background-image: url(/assets/slider/4.svg);">
+          <div class="content">
+            <div class="name">Somos HarmanuSoft!</div>
+            <div class="des">Tecnología que impulsa tu éxito.</div>
+          </div>
+        </div>
+
+        <div class="item" style="background-image: url(/assets/slider/5.svg);">
+          <div class="content">
+            <div class="name">Somos HarmanuSoft!</div>
+            <div class="des">Soluciones inteligentes, resultados tangibles.</div>
+          </div>
+        </div>
+
+        <div class="item" style="background-image: url(/assets/slider/6.svg);">
+          <div class="content">
+            <div class="name">Somos HarmanuSoft!</div>
+            <div class="des">Tu futuro digital empieza con HarmanuSoft.</div>
+          </div>
+        </div>
+
+        <div class="button">
+          <button class="prev"><i class="fas fa-arrow-left"></i></button>
+          <button class="next"><i class="fas fa-arrow-right"></i></button>
+        </div>
+
+      </div>
+
+    </div>
+
+    <h1>Empresa de sofware - HarmanuSoft</h1>
+  </header>
+
+
+  <div class="container" id="container">
+    <img src="../assets/images/software-login.png" alt="Imagen 1">
+    <h1>Mision y vision de HarmanuSoft</h1>
+    <div id="mision">
+      <h2>Misión</h2>
+      <p id="misionText"></p>
+      <textarea id="misionInput" style="display: none"></textarea>
+    </div>
+    <div id="vision">
+      <h2>Visión</h2>
+      <p id="visionText"></p>
+      <textarea id="visionInput" style="display: none"></textarea>
+    </div>
+    <button id="modificarBtn" class="btn" onclick="ModificarMisionYVision()">Modificar Misión y Visión</button>
+    <button id="guardarBtn" class="btn" onclick="GuardarMisionYVision()" style="display: none;">Guardar</button>
+    <button id="cancelarBtn" class="btn" style="display: none;" onclick="CancelarModificacion()">Cancelar</button>
+
+  </div>
+
+  <footer>
+    <p>&copy; 2024 - HarmanuSoft</p>
+    <div class="social-icons">
+      <a href="https://www.facebook.com" target="_blank" aria-label="Facebook">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="https://www.instagram.com" target="_blank" aria-label="Instagram">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="https://www.youtube.com" target="_blank" aria-label="YouTube">
+        <i class="fab fa-youtube"></i>
+      </a>
+    </div>
+  </footer>
+
+  <script src="../controlador/header_miss.js"></script>
+  <script src="../controlador/script.js"></script>
+
+</body>
+
+</html>

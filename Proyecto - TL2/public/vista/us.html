@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acerca de Nosotros</title>
+  <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../assets/css/style_us.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=League+Gothic&display=swap">
+  <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <header>
+    <div class="home-button">
+      <a href="../vista/main.html"><i class="fas fa-home"></i> Home</a>
+    </div>
+
+    <button class="menu">
+      <i class="fas fa-bars"></i>
+      <i class="fas fa-times"></i> <!-- Añadido -->
+      <span>Menú</span>
+    </button>
+    <nav class="navbar">
+      <ul class="nava">
+        <li><a href="../vista/mision.html">Mision y vision</a></li>
+        <li><a href="../vista/dtoPersonal.html" id="Registro">Registro</a></li>
+      </ul>
+    </nav>
+
+    <div class="slider-container">
+      <button class="prev" onclick="prevSlide()">&#10094;</button>
+      <div class="slider">
+        <img src="../assets/slider/sobre-nosotros.png" alt="Imagen 1">
+        <img src="../assets/slider/informacion.png" alt="Imagen 2">
+        <img src="../assets/slider/equipo.png" alt="Imagen 3">
+        <img src="../assets/slider/grupo.png" alt="Imagen 4">
+      </div>
+      <button class="next" onclick="nextSlide()">&#10095;</button>
+    </div>
+
+    <h1>Acerca de HarmanuSoft</h1>
+  </header>
+
+
+  <div class="container">
+    <div class="cards">
+      <div class="card">
+        <img src="../assets/images/Harold.png" alt="Foto de Harold">
+        <div class="info">
+          <h1>Harold Hoyos Cano</h1>
+          <p>Programador</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="../assets/images/Emanuel.jpg" alt="Foto de Emanuel">
+        <div class="info">
+          <h1>Emanuel Ocampo Hernandez</h1>
+          <p>Mula</p>
+        </div>
+      </div>
+    </div>
+
+    <h1 class="titlebajo">Nosotros</h1>
+    <a href="mailto:haroldhoyo17@gmail.com" class="contact-button">Contáctanos</a>
+  </div>
+
+  <footer>
+    <p>&copy; 2024 - HarmanuSoft</p>
+    <div class="social-icons">
+      <a href="https://www.facebook.com" target="_blank" aria-label="Facebook">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="https://www.instagram.com" target="_blank" aria-label="Instagram">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="https://www.youtube.com" target="_blank" aria-label="YouTube">
+        <i class="fab fa-youtube"></i>
+      </a>
+    </div>
+  </footer>
+
+  <script src="../controlador/header.js"></script>
+  <script src="../controlador/script.js"></script>
+</body>
+
+</html>

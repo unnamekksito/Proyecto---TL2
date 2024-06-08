@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formulario - HarmanuSoft</title>
+  <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+  <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=League+Gothic&display=swap">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+  <header>
+    <div class="home-button">
+      <a href="../vista/main.html"><i class="fas fa-home"></i> Home</a>
+    </div>
+
+    <button class="menu">
+      <i class="fas fa-bars"></i>
+      <i class="fas fa-times"></i> <!-- Añadido -->
+      <span>Menú</span>
+    </button>
+    <nav class="navbar">
+      <ul class="nava">
+        <li><a href="../vista/mision.html">Mision y vision</a></li>
+        <li><a href="../vista/us.html">Nosotros</a></li>
+      </ul>
+    </nav>
+
+    <div class="slider-container">
+      <button class="prev" onclick="prevSlide()">&#10094;</button>
+      <div class="slider">
+        <img src="../assets/slider/anadir.png" alt="Imagen 1" />
+        <img src="../assets/slider/derechos-de-autor.png" alt="Imagen 2" />
+        <img src="../assets/slider/nota.png" alt="Imagen 3" />
+        <img src="../assets/slider/registro.png" alt="Imagen 4" />
+      </div>
+      <button class="next" onclick="nextSlide()">&#10095;</button>
+    </div>
+    <h1>Formulario de ingreso de personas</h1>
+  </header>
+
+
+  <div class="container">
+    <h1>Registro</h1><br>
+    <form id="formulario">
+      <input type="text" id="nombre" placeholder="Nombre" disabled />
+      <input type="text" id="apellido" placeholder="Apellido" disabled />
+      <input type="text" id="username" placeholder="Username" disabled />
+      <input type="password" id="password" placeholder="Contraseña" disabled />
+      <input type="text" id="correo" placeholder="Correo electronico" disabled />
+      <select id="genero" disabled>
+        <option value="Masculino">Masculino</option>
+        <option value="Femenino">Femenino</option>
+        <option value="Otro">Otro</option>
+      </select>
+      <input type="date" id="fechaNacimiento" name="fechaNacimiento" disabled />
+      <select id="level" disabled>
+        <option value="User">Usuario</option>
+        <option value="Admin">Administrador</option>
+      </select>
+      <button type="submit" onclick="ValidarYEditarDatos()">Guardar</button>
+    </form>
+  </div>
+
+  <div id="datosTable-container">
+    <h1>Tabla de datos</h1><br>
+    <table id="datosTable">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Apellidos</th>
+          <th>Username</th>
+          <th>Password</th>
+          <th>Género</th>
+          <th>Fecha de Nacimiento</th>
+          <th>Email</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="datosBody">
+        <!-- Aquí se insertarán dinámicamente los datos -->
+      </tbody>
+    </table>
+  </div>
+
+  <script src="../controlador/header.js"></script>
+  <script src="../controlador/validacion.js"></script>
+</body>
+
+<footer>
+  <p>&copy; 2024 - HarmanuSoft</p>
+  <div class="social-icons">
+    <a href="https://www.facebook.com" target="_blank" aria-label="Facebook">
+      <i class="fab fa-facebook-f"></i>
+    </a>
+    <a href="https://www.instagram.com" target="_blank" aria-label="Instagram">
+      <i class="fab fa-instagram"></i>
+    </a>
+    <a href="https://www.youtube.com" target="_blank" aria-label="YouTube">
+      <i class="fab fa-youtube"></i>
+    </a>
+  </div>
+</footer>
+
+</html>
