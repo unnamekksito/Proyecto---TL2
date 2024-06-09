@@ -49,8 +49,3 @@ function toggleMenu() {
       document.querySelector('.slide').prepend(items[items.length - 1]);
     });
   }
-  
-  function nextSlide() {
-    const items = document.querySelectorAll('.slide .item');
-    document.querySelector('.slide').appendChild(items[0]);
-  }

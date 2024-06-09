@@ -1,83 +1,81 @@
 document.addEventListener("DOMContentLoaded", function () {
-  //Funcionalidad para mostrar form de Login o Registro
   const formContainer = document.getElementById("form-container");
   const loginButton = document.getElementById("login-button");
   const registerButton = document.getElementById("register-button");
 
   loginButton.addEventListener("click", function () {
-    loadForm("login");
+    toggleForm("login");
   });
 
   registerButton.addEventListener("click", function () {
-    loadForm("register");
+    toggleForm("register");
   });
 
-  function loadForm(type) {
+  function toggleForm(type) {
     formContainer.innerHTML = ""; // Limpiar el contenedor antes de cargar el nuevo formulario
 
     if (type === "login") {
+      loginButton.style.display = "none";
+      registerButton.style.display = "block";
       formContainer.innerHTML = `
-                <form id="login-form" class="form">
-                    <h2>Iniciar sesión</h2>
-                <div class="input-field">
-                    <i class="fas fa-user"></i>
-                    <input type="text" class="input" id="username" name="username" placeholder="Nombre de Usuario">
-                </div>
-                <div class="input-field">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" class="input" id="password" name="password" placeholder="Contraseña" >
-                </div>
-                    <button type="button" class="submit" onclick="IniciarSesion()">Iniciar sesión</button>
-                </form>
-            `;
+        <form id="login-form" class="form">
+          <h2>Iniciar sesión</h2>
+          <div class="input-field">
+            <i class="fas fa-user"></i>
+            <input type="text" class="input" id="username" name="username" placeholder="Nombre de Usuario">
+          </div>
+          <div class="input-field">
+            <i class="fas fa-lock"></i>
+            <input type="password" class="input" id="password" name="password" placeholder="Contraseña" >
+          </div>
+          <button type="button" class="submit" onclick="IniciarSesion()">Iniciar sesión</button>
+        </form>
+      `;
     } else if (type === "register") {
+      registerButton.style.display = "none";
+      loginButton.style.display = "block";
       formContainer.innerHTML = `
-            <div class="form">
-                <h2>Registro</h2>
-
-                <div class="inline-fields">
-                    <div class="input-field">
-                        <i class="fas fa-user"></i>
-                        <input type="text" class="input" id="name" name="name" placeholder="Nombre">
-                    </div>
-                    <div class="input-field">
-                        <i class="fas fa-user"></i>
-                        <input type="text" class="input" id="last-name" name="last-name" placeholder="Apellidos">
-                    </div>
-                </div>
-
-                <div class="input-field">
-                    <i class="fas fa-user"></i>
-                    <input type="text" class="input" id="username" name="username" placeholder="Nombre de Usuario">
-                </div>
-
-                <div class="input-field">
-                    <i class="fas fa-envelope"></i>
-                    <input type="email" class="input" id="email" name="email" placeholder="Correo">
-                </div>
-
-                <div class="inline-fields">
-                    <div class="input-field">
-                        <i class="fas fa-venus-mars"></i>
-                        <select class="input" id="gender" name="gender" placeholder="Género">
-                            <option value="Masculino">Masculino</option>
-                            <option value="Femenino">Femenino</option>
-                            <option value="Otro">Otro</option>
-                        </select>
-                    </div>
-                    <div class="input-field">
-                        <i class="fas fa-calendar-alt"></i>
-                        <input type="date" class="input" id="date" name="date" placeholder="Fecha de nacimiento">
-                    </div>
-                </div>
-                
-                <div class="input-field">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" class="input" id="password" name="password" placeholder="Contraseña" >
-                </div>
-                <button type="button" class="submit" onclick="RegistrarUsuario()">Registrar</button>
+        <div class="form">
+          <h2>Registro</h2>
+          <div class="inline-fields">
+            <div class="input-field">
+              <i class="fas fa-user"></i>
+              <input type="text" class="input" id="name" name="name" placeholder="Nombre">
             </div>
-        `;
+            <div class="input-field">
+              <i class="fas fa-user"></i>
+              <input type="text" class="input" id="last-name" name="last-name" placeholder="Apellidos">
+            </div>
+          </div>
+          <div class="input-field">
+            <i class="fas fa-user"></i>
+            <input type="text" class="input" id="username" name="username" placeholder="Nombre de Usuario">
+          </div>
+          <div class="input-field">
+            <i class="fas fa-envelope"></i>
+            <input type="email" class="input" id="email" name="email" placeholder="Correo">
+          </div>
+          <div class="inline-fields">
+            <div class="input-field">
+              <i class="fas fa-venus-mars"></i>
+              <select class="input" id="gender" name="gender">
+                <option value="Masculino">Masculino</option>
+                <option value="Femenino">Femenino</option>
+                <option value="Otro">Otro</option>
+              </select>
+            </div>
+            <div class="input-field">
+              <i class="fas fa-calendar-alt"></i>
+              <input type="date" class="input" id="date" name="date">
+            </div>
+          </div>
+          <div class="input-field">
+            <i class="fas fa-lock"></i>
+            <input type="password" class="input" id="password" name="password" placeholder="Contraseña">
+          </div>
+          <button type="button" class="submit" onclick="RegistrarUsuario()">Registrar</button>
+        </div>
+      `;
     }
   }
   //Fin form login o registro

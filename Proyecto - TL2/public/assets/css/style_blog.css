@@ -1,0 +1,237 @@
+:root {
+  scroll-behavior: smooth;
+}
+
+.container {
+  display: none;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+  text-align: center;
+}
+
+header {
+  position: relative;
+  background-image: linear-gradient(
+    to bottom,
+    #0077b6 0%,
+    /* Azul más claro en la parte superior */ rgba(0, 93, 158, 0.5) 100%
+      /* Azul más oscuro en la parte inferior con una opacidad del 50% */
+  );
+  text-align: center;
+  padding: 20px 0;
+}
+
+header h1 {
+  font-size: 40px;
+  font-weight: 600;
+  margin: 0;
+  color: lavender;
+  font-family: "Lobster";
+}
+
+header span {
+  font-size: 40px;
+  font-weight: 600;
+  margin: 0;
+  color: lavender;
+  font-family: "Lobster";
+}
+
+/* Estilos para el botón "Home" */
+.home-button {
+  position: absolute;
+  top: 30px; /* Alinea verticalmente el botón con el menú */
+  right: 20px; /* Ajusta la distancia desde la derecha */
+  z-index: 999;
+}
+
+.home-button a {
+  text-decoration: none;
+  font-size: 40px;
+  font-weight: 600;
+  margin: 0;
+  color: lavender;
+  font-family: "Lobster";
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.home-button a:hover {
+  background-color: white;
+  color: #033c7c;
+}
+
+/* Estilos del menú hamburguesa */
+.menu {
+  border: 0;
+  background-color: transparent;
+  margin: 20px;
+  cursor: pointer;
+  z-index: 1000;
+  position: absolute;
+  top: 20px; /* Ajusta la distancia desde la parte superior */
+  left: 20px; /* Ajusta la distancia desde la izquierda */
+  font-size: 30px; /* Aumenta el tamaño del ícono */
+  color: lavender; /* Color del ícono */
+  display: flex;
+  align-items: center;
+}
+
+.menu.open {
+  position: fixed;
+}
+
+.menu span {
+  margin-left: 10px; /* Espacio entre el icono y el texto */
+}
+
+.menu .fas.fa-times {
+  display: none;
+}
+
+.menu.open .fas.fa-bars {
+  display: none;
+}
+
+.menu.open .fas.fa-times {
+  display: inline;
+}
+
+.navbar {
+  position: fixed;
+  height: 100%;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Cambiado de center a flex-start */
+  left: -300px; /* Oculta el menú fuera de la pantalla */
+  transition: left 0.3s ease;
+  top: 0;
+  background-color: #234567; /* Fondo del menú */
+  z-index: 1;
+}
+
+.navbar.open {
+  left: 0; /* Muestra el menú cuando está abierto */
+}
+
+.nava {
+  display: flex;
+  flex-direction: column;
+  background-color: #234567;
+  justify-content: space-between;
+  height: 100%;
+  padding: 150px 0px;
+  list-style: none; /* Quita los puntos de lista */
+}
+
+.nava li {
+  font-size: 40px;
+  margin: 10px 20px; /* Ajuste de margen para alinear a la izquierda */
+}
+
+.nava li a {
+  font-family: "League Gothic", sans-serif;
+  color: lavender; /* Cambia el color de las opciones del menú a lavender */
+  text-align: left; /* Alinea el texto a la izquierda */
+  text-decoration: none;
+}
+
+.nava li a:hover {
+  color: #fff;
+}
+
+/* Estilos del slider */
+.slider-container {
+  display: flex;
+  position: relative;
+  margin: 0 auto;
+  width: 100%; /* Ajusta el ancho del contenedor al 100% */
+  max-width: 150px; /* Ancho máximo del contenedor igual al ancho de las imágenes */
+  height: auto; /* Altura automática para adaptarse al tamaño de las imágenes */
+  overflow: hidden;
+  padding-left: 50px;
+  z-index: 1; /* Añadido para asegurar que el slider esté detrás del menú */
+}
+
+.slider {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: calc(100% - 50px);
+  overflow: hidden;
+}
+
+.slider img {
+  width: 100px;
+  height: auto;
+  fill: #000;
+  transition: fill 0.3s ease;
+}
+
+.prev,
+.next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.prev {
+  left: 0;
+}
+
+.next {
+  right: 0;
+}
+
+.container {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos del pie de página */
+footer {
+  background-image: linear-gradient(
+    to bottom,
+    #0077b6 0%,
+    /* Azul más claro en la parte superior */ rgba(0, 93, 158, 0.5) 100%
+      /* Azul más oscuro en la parte inferior con una opacidad del 50% */
+  );
+  color: lavenderblush;
+  text-align: center;
+  padding: 20px;
+  font-family: "League Gothic", sans-serif;
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+.social-icons {
+  margin-top: 10px;
+}
+
+.social-icons a {
+  color: #fff;
+  margin: 0 10px;
+  font-size: 24px;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.social-icons a:hover {
+  color: #ddd;
+}
+
+
