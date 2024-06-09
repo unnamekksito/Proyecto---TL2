@@ -17,7 +17,7 @@ function openPostModal() {
       if (!title || !content) {
         Swal.showValidationMessage("Por favor complete todos los campos");
       }
-      return [title, content, image]; // Devolver un array con los datos
+      return { title, content, image }; // Devolver un objeto con los datos
     },
   }).then((result) => {
     if (result.isConfirmed) {
@@ -30,27 +30,34 @@ function openPostModal() {
 
 async function submitPost(postData) {
   try {
-    const [title, content, image] = postData; // Desestructuramos el array
-    const body = {
-      title: title,
-      content: content,
-      image: image || null, // Si no hay imagen, establecemos null
+    const { title, content, image } = postData;
+
+    const reader = new FileReader();
+    reader.readAsDataURL(image);
+    reader.onloadend = async () => {
+      const imageDataUrl = reader.result;
+
+      const body = {
+        title: title,
+        content: content,
+        image: imageDataUrl,
+      };
+
+      console.log(body);
+      const response = await fetch("/crearPosts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error al publicar el post.");
+      }
+
+      location.reload(); // Recargar la página después de enviar el post
     };
-
-    console.log(body);
-    const response = await fetch("/crearPosts", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json", // Indicamos que el cuerpo es JSON
-      },
-      body: JSON.stringify(body), // Convertimos el objeto a JSON
-    });
-
-    if (!response.ok) {
-      throw new Error("Error al publicar el post.");
-    }
-
-    // location.reload();
   } catch (error) {
     console.error(error.message);
   }
@@ -58,39 +65,39 @@ async function submitPost(postData) {
 
 // Esta función carga los posts del servidor y los muestra en el contenedor
 async function cargarPosts() {
-    try {
-      const response = await fetch("/obtenerPosts");
-      const posts = await response.json();
-  
-      const container = document.getElementById("post-container");
-      container.innerHTML = ""; // Limpiamos el contenedor
-  
-      posts.forEach((post) => {
-        const postElement = document.createElement("div");
-        postElement.classList.add("post");
-  
-        const titleElement = document.createElement("h2");
-        titleElement.classList.add("post-title");
-        titleElement.textContent = post.title;
-  
-        const contentElement = document.createElement("div");
-        contentElement.classList.add("post-content");
-        contentElement.textContent = post.content;
-  
-        const imageElement = document.createElement("img");
-        imageElement.classList.add("post-image");
-        imageElement.src = post.image || "../assets/images/software-login.png"; // Si no hay imagen, mostrar una de relleno
-  
-        postElement.appendChild(titleElement);
-        postElement.appendChild(contentElement);
-        postElement.appendChild(imageElement);
-  
-        container.appendChild(postElement);
-      });
-    } catch (error) {
-      console.error("Error al cargar los posts:", error);
-    }
+  try {
+    const response = await fetch("/obtenerPosts");
+    const posts = await response.json();
+
+    const container = document.getElementById("post-container");
+    container.innerHTML = ""; // Limpiamos el contenedor
+
+    posts.forEach((post) => {
+      const postContainer = document.createElement("div");
+      postContainer.classList.add("post-container"); // Agregamos una clase para cada contenedor
+      postContainer.classList.add("post"); // Agregamos clase post
+
+      const titleElement = document.createElement("h2");
+      titleElement.classList.add("post-title");
+      titleElement.textContent = post.title;
+
+      const contentElement = document.createElement("div");
+      contentElement.classList.add("post-content");
+      contentElement.textContent = post.content;
+
+      const imageElement = document.createElement("img");
+      imageElement.classList.add("post-image");
+      imageElement.src = post.image || "../assets/images/software-login.png"; // Si no hay imagen, mostrar una de relleno
+
+      postContainer.appendChild(titleElement);
+      postContainer.appendChild(contentElement);
+      postContainer.appendChild(imageElement);
+
+      container.appendChild(postContainer);
+    });
+  } catch (error) {
+    console.error("Error al cargar los posts:", error);
   }
-  
-  // Llamamos a la función para cargar los posts cuando se cargue la página
-  document.addEventListener("DOMContentLoaded", cargarPosts);
+}
+
+document.addEventListener("DOMContentLoaded", cargarPosts);
