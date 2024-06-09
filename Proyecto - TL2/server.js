@@ -6,7 +6,6 @@ const path = require("path");
 const app = express();
 const port = 4200;
 
-
 //MANDAR ARCHIVOS PARA QUE SE MUESTREN AL SERVER
 // Middleware para parsear el cuerpo de las solicitudes como JSON
 app.use(express.json());
@@ -51,7 +50,7 @@ app.get("/obtenerDatos", async (req, res) => {
     const datos = JSON.parse(data);
 
     // Conectar a la base de datos MongoDB
-    const db = client.db("Harmanusoft");
+    const db = client.db("BlogiSoft");
     const collection = db.collection("datosPersonas");
 
     // Borrar todos los documentos existentes en la colección
@@ -145,7 +144,7 @@ app.post("/login", async (req, res) => {
     const { username, password } = req.body;
 
     // Buscar el usuario en la base de datos MongoDB
-    const db = client.db("Harmanusoft");
+    const db = client.db("BlogiSoft");
     const usuarios = db.collection("datosPersonas");
     const usuario = await usuarios.findOne({ username: username });
 
@@ -158,7 +157,10 @@ app.post("/login", async (req, res) => {
     }
 
     // Si las credenciales son válidas, generar el token de autenticación
-    const token = jwt.sign({ username: usuario.username, level: usuario.level }, "clave-secreta");
+    const token = jwt.sign(
+      { username: usuario.username, level: usuario.level },
+      "clave-secreta"
+    );
 
     // Devolver el token como parte de la respuesta
     res.status(200).json({ mensaje: "Inicio de sesión exitoso", token: token });
@@ -228,7 +230,7 @@ app.put("/editarDatos/:oldEmail", async (req, res) => {
       fechaNacimiento,
       password,
       email,
-      level
+      level,
     } = req.body;
 
     // Leer el archivo JSON y parsearlo para obtener los datos actuales
@@ -323,6 +325,52 @@ app.post("/guardarMisionYVision", async (req, res) => {
   }
 });
 //FIN JSON
+
+//Inicio logica posts
+// Ruta para crear un nuevo post
+app.post("/crearPosts", async (req, res) => {
+  try {
+    const db = client.db("BlogiSoft");
+    const postsCollection = db.collection("datosPosts");
+
+    // Obtener los datos del post desde el cuerpo de la solicitud
+    const { title, content, image } = req.body;
+
+    // Crear el documento del post
+    const newPost = {
+      title: title,
+      content: content,
+      image: image || null, // Si no se proporciona una imagen, establecerla como null
+    };
+
+    // Insertar el nuevo post en la colección
+    const result = await postsCollection.insertOne(newPost);
+
+    // Enviar una respuesta al cliente
+    res
+      .status(201)
+      .json({ message: "Post creado exitosamente", postId: result.insertedId });
+  } catch (error) {
+    console.error("Error al crear el post:", error);
+    res.status(500).json({ message: "Error al crear el post" });
+  }
+});
+
+app.get('/obtenerPosts', async (req, res) => {
+  try {
+    const db = client.db("BlogiSoft");
+    const postsCollection = db.collection("datosPosts");
+
+    // Obtener todos los posts de la colección
+    const posts = await postsCollection.find().toArray();
+
+    // Enviar los posts como respuesta al cliente
+    res.status(200).json(posts);
+  } catch (error) {
+    console.error("Error al obtener los posts:", error);
+    res.status(500).json({ message: "Error al obtener los posts" });
+  }
+});
 
 // Iniciar el servidor
 app.listen(port, () => {

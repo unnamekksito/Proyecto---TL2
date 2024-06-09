@@ -11,12 +11,17 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=League+Gothic&display=swap">
   <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
   <header>
     <div class="home-button">
       <a href="../vista/main.html"><i class="fas fa-home"></i> Home</a>
+    </div>
+
+    <div class="post-button">
+      <a onclick="openPostModal()"><i class="fas fa-edit"></i> Postea</a>
     </div>
 
     <button class="menu">
@@ -42,12 +47,10 @@
       <button class="next" onclick="nextSlide()">&#10095;</button>
     </div>
 
-    <h1>Acerca de HarmanuSoft</h1>
   </header>
 
-
-  <div class="container">
-
+  <div class="container" id="post-container">
+    
   </div>
 
   <footer>
@@ -66,7 +69,7 @@
   </footer>
 
   <script src="../controlador/header.js"></script>
-  <script src="../controlador/script.js"></script>
+  <script src="../controlador/posts.js"></script>
 </body>
 
 </html>

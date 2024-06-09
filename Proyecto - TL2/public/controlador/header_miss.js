@@ -41,11 +41,11 @@ function toggleMenu() {
   
     nextButton.addEventListener('click', () => {
       const items = document.querySelectorAll('.slide .item');
-      document.querySelector('.slide').appendChild(items[0]);
+      document.querySelector('.slide').prepend(items[items.length - 1]);
     });
   
     prevButton.addEventListener('click', () => {
       const items = document.querySelectorAll('.slide .item');
-      document.querySelector('.slide').prepend(items[items.length - 1]);
+      document.querySelector('.slide').prepend(items[items.length - 2]);
     });
   }

@@ -43,14 +43,21 @@ header span {
 }
 
 /* Estilos para el botón "Home" */
-.home-button {
+.home-button, .post-button {
   position: absolute;
   top: 30px; /* Alinea verticalmente el botón con el menú */
-  right: 20px; /* Ajusta la distancia desde la derecha */
   z-index: 999;
 }
 
-.home-button a {
+.home-button{
+  right: 20px;
+}
+.post-button{
+  right: 200px;
+  cursor: pointer;
+}
+
+.home-button a,.post-button a {
   text-decoration: none;
   font-size: 40px;
   font-weight: 600;
@@ -61,11 +68,10 @@ header span {
   border-radius: 5px;
 }
 
-.home-button a:hover {
+.home-button a:hover, .post-button a:hover{
   background-color: white;
   color: #033c7c;
 }
-
 /* Estilos del menú hamburguesa */
 .menu {
   border: 0;
@@ -193,13 +199,35 @@ header span {
   right: 0;
 }
 
-.container {
+
+/* Estilos para el contenedor de posts */
+#postContainer {
   max-width: 800px;
   margin: 50px auto;
   padding: 20px;
   background-color: #fff;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.post {
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.post-title {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.post-content {
+  margin-bottom: 10px;
+}
+
+.post-image {
+  max-width: 100%;
+  border-radius: 5px;
 }
 
 /* Estilos del pie de página */
