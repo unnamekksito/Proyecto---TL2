@@ -23,7 +23,6 @@ header {
   );
   text-align: center;
   padding: 20px 0;
-  width: 100%; 
 }
 
 header h1 {
@@ -289,11 +288,21 @@ header span {
 }
 
 .post-image {
-  max-width: 100%;
+  max-width: 30%;
   height: auto;
   border-radius: 5px;
   object-fit: cover;
-  align-self: flex-end;
+  align-self: center;
+}
+
+.custom-modal-popup {
+  width: auto; 
+  max-width: 90%; 
+  padding: 0; 
+}
+
+.swal2-image {
+  border-radius: 0; 
 }
 
 .delete-button {

@@ -100,7 +100,7 @@ async function cargarPosts() {
 
       const userElement = document.createElement("p");
       userElement.classList.add("post-user");
-      userElement.textContent = "Posted by: ";
+      userElement.textContent = "Públicado por: ";
       const usernameElement = document.createElement("span");
       usernameElement.textContent = post.user;
       userElement.appendChild(usernameElement);
@@ -108,11 +108,11 @@ async function cargarPosts() {
 
       // Agregar botón de borrado solo para administradores
       if (userLevel === "Admin") {
-      const deleteButton = document.createElement("button");
-      deleteButton.classList.add("delete-button");
-      deleteButton.innerHTML = '<i class="fas fa-trash-alt"></i>';
-      deleteButton.onclick = () => borrarPost(post._id);
-      headerElement.appendChild(deleteButton);
+        const deleteButton = document.createElement("button");
+        deleteButton.classList.add("delete-button");
+        deleteButton.innerHTML = '<i class="fas fa-trash-alt"></i>';
+        deleteButton.onclick = () => borrarPost(post._id);
+        headerElement.appendChild(deleteButton);
       }
 
       postElement.appendChild(headerElement);
@@ -127,17 +127,50 @@ async function cargarPosts() {
       contentElement.textContent = post.content;
       postElement.appendChild(contentElement);
 
+      // Dentro de la función cargarPosts
+
       if (post.image) {
         const imageElement = document.createElement("img");
         imageElement.classList.add("post-image");
         imageElement.src = post.image;
-        imageElement.alt = "Post Image";
+        imageElement.addEventListener("click", () =>
+          openImageModal(post.image)
+        ); // Agregar evento de clic
         postElement.appendChild(imageElement);
+      }
+
+      // Función para abrir la imagen en un modal
+      // Función para abrir la imagen en un modal con funcionalidad de zoom
+      function openImageModal(imageSrc) {
+        Swal.fire({
+          imageUrl: imageSrc,
+          showConfirmButton: false, // Oculta el botón de confirmación
+          allowOutsideClick: true, // Permite cerrar el modal haciendo clic fuera de él
+          customClass: {
+            popup: "custom-modal-popup", // Clase CSS personalizada para el modal
+          },
+          didOpen: () => {
+            const imageElement = document.querySelector(".swal2-image");
+
+            imageElement.addEventListener("wheel", function (event) {
+              event.preventDefault();
+              const delta = Math.max(
+                -1,
+                Math.min(1, event.deltaY || -event.detail)
+              );
+              const zoomValue = parseInt(this.style.zoom || 100);
+              const newZoomValue = zoomValue + delta * 10; // Ajusta la velocidad de zoom según sea necesario
+              this.style.zoom = `${newZoomValue}%`;
+            });
+          },
+        });
       }
 
       const likeButton = document.createElement("button");
       likeButton.classList.add("like-button");
-      likeButton.innerHTML = `<i class="fas fa-thumbs-up"></i> <span>${post.likes ?? 0}</span>`;
+      likeButton.innerHTML = `<i class="fas fa-thumbs-up"></i> <span>${
+        post.likes ?? 0
+      }</span>`;
       likeButton.addEventListener("click", () => handleLike(post._id));
       headerElement.appendChild(likeButton);
 
@@ -162,9 +195,9 @@ async function handleLike(postId) {
 
     if (response.ok) {
       const postElement = document.querySelector(`[data-post-id="${postId}"]`);
-      const likeButton = postElement.querySelector('.like-button');
-      const likeCount = likeButton.querySelector('span');
-      const isLiked = likeButton.classList.toggle('liked');
+      const likeButton = postElement.querySelector(".like-button");
+      const likeCount = likeButton.querySelector("span");
+      const isLiked = likeButton.classList.toggle("liked");
 
       if (isLiked) {
         likeCount.textContent = parseInt(likeCount.textContent) + 1;
