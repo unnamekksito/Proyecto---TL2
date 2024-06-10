@@ -95,48 +95,59 @@ async function cargarPosts() {
       const postElement = document.createElement("div");
       postElement.classList.add("post");
 
+      const headerElement = document.createElement("div");
+      headerElement.classList.add("post-header");
+
       const userElement = document.createElement("p");
       userElement.classList.add("post-user");
-      userElement.textContent = `Posted by: ${post.user}`;
+      userElement.textContent = "Posted by: ";
+      const usernameElement = document.createElement("span");
+      usernameElement.textContent = post.user;
+      userElement.appendChild(usernameElement);
+      headerElement.appendChild(userElement);
+
+      // Agregar botón de borrado solo para administradores
+      if (userLevel === "Admin") {
+      const deleteButton = document.createElement("button");
+      deleteButton.classList.add("delete-button");
+      deleteButton.innerHTML = '<i class="fas fa-trash-alt"></i>';
+      deleteButton.onclick = () => borrarPost(post._id);
+      headerElement.appendChild(deleteButton);
+      }
+
+      postElement.appendChild(headerElement);
 
       const titleElement = document.createElement("h2");
       titleElement.classList.add("post-title");
       titleElement.textContent = post.title;
+      postElement.appendChild(titleElement);
 
       const contentElement = document.createElement("div");
       contentElement.classList.add("post-content");
       contentElement.textContent = post.content;
-
-      postElement.appendChild(userElement);
-      postElement.appendChild(titleElement);
       postElement.appendChild(contentElement);
 
       if (post.image) {
         const imageElement = document.createElement("img");
         imageElement.classList.add("post-image");
         imageElement.src = post.image;
+        imageElement.alt = "Post Image";
         postElement.appendChild(imageElement);
       }
-      const likeButton = document.createElement("megusta");
-      likeButton.classList.add("like-button");
-      likeButton.innerHTML = `<i class="fas fa-regular fas fa-thumbs-up"></i> <span>${post.likes ?? 0}</span>`;
-      likeButton.addEventListener("click", () => handleLike(post._id));
 
-      // Agregar botón de borrado solo para administradores
-      if (userLevel === "Admin") {
-        const deleteButton = document.createElement("button");
-        deleteButton.innerHTML = '<i class="fas fa-trash-alt"></i>';
-        deleteButton.onclick = () => borrarPost(post._id);
-        postElement.appendChild(deleteButton);
-      }
-      postElement.appendChild(likeButton);
+      const likeButton = document.createElement("button");
+      likeButton.classList.add("like-button");
+      likeButton.innerHTML = `<i class="fas fa-thumbs-up"></i> <span>${post.likes ?? 0}</span>`;
+      likeButton.addEventListener("click", () => handleLike(post._id));
+      headerElement.appendChild(likeButton);
+
       container.appendChild(postElement);
-      
     });
   } catch (error) {
     console.error("Error al cargar los posts:", error);
   }
 }
+
 async function handleLike(postId) {
   const user = localStorage.getItem("username");
 

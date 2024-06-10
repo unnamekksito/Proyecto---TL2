@@ -208,6 +208,7 @@ header span {
   width: 100%; 
 }
 
+
 .post-container {
   border: 1px solid #ccc;
   padding: 20px;
@@ -217,9 +218,7 @@ header span {
 }
 
 .post {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  position: relative;
   margin-bottom: 20px;
   padding: 20px;
   border-radius: 8px;
@@ -240,10 +239,13 @@ header span {
 }
 
 .like-button {
+  /* Estilos del botón de "Me gusta" */
+  position: absolute;
+  bottom: 10px; /* Ajusta la distancia desde la parte inferior */
+  right: 10px; /* Ajusta la distancia desde la derecha */
   background: none;
   border: none;
   color: #007bff;
-  cursor: pointer;
   font-size: 1.2em;
   padding: 0;
   margin-top: 40px;
@@ -265,18 +267,17 @@ header span {
 .post-user {
   font-size: 14px;
   font-weight: bold;
-  margin-bottom: 5px;
   color: #555;
 }
 
 .post-title {
   font-size: 20px;
-  margin-top: 0;
+  margin: 0;
   margin-bottom: 10px;
 }
 
 .post-content {
-  margin-top: 10px;
+  margin: 0;
   margin-bottom: 10px;
 }
 
@@ -288,21 +289,19 @@ header span {
   align-self: flex-end;
 }
 
-.post button {
+.delete-button {
   background-color: transparent;
   border: none;
   color: red;
   font-size: 20px;
   cursor: pointer;
-  position: absolute;
-  top: 10px;
-  right: 10px;
 }
 
-.post button:hover {
+.delete-button:hover {
   color: darkred;
 }
 
+/* Estilos del pie de página */
 footer {
   margin-top: auto;
   background-image: linear-gradient(

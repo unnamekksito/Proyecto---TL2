@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, "public", "controlador")));
 app.use(express.static(path.join(__dirname, "public", "modelo")));
 
 //INICIO MONGO DB
-const uri = "mongodb://localhost:27017"; // URI de conexión a tu base de datos MongoDB
+const uri = "mongodb://localhost:27017/"; // URI de conexión a tu base de datos MongoDB
 const client = new MongoClient(uri);
 
 async function ConectarMongoDB() {
