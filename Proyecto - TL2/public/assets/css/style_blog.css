@@ -269,6 +269,30 @@ header span {
   font-size: 0.9em;
 }
 
+.comment-button {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: none;
+  border: none;
+  color: #007bff; /* Color azul */
+  font-size: 1.2em;
+  padding: 0;
+}
+.comment-button i {
+  margin-right: 5px;
+}
+.comment-button:hover {
+  color: #0056b3;
+}
+.comment-button:hover {
+  color: #0056b3; /* Color azul oscuro al pasar el mouse */
+}
+.comment-button span {
+  margin-left: 5px;
+  font-size: 0.9em;
+}
+
 .post-user {
   font-size: 14px;
   font-weight: bold;
@@ -316,6 +340,30 @@ header span {
 .delete-button:hover {
   color: darkred;
 }
+
+/* Estilos para los recuadros de los posts pequeños */
+.comments-container {
+  margin-top: 20px;
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+}
+
+.comment {
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+}
+
+.comment-user {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.comment-content {
+  margin: 0;
+}
+
 
 footer {
   margin-top: auto;
