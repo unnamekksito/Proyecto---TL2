@@ -80,7 +80,6 @@ async function sendPost(body) {
   }
 }
 
-// Esta función carga los posts del servidor y los muestra en el contenedor
 async function cargarPosts() {
   try {
     const response = await fetch("/obtenerPosts");
@@ -103,6 +102,7 @@ async function cargarPosts() {
       userElement.textContent = "Públicado por: ";
       const usernameElement = document.createElement("span");
       usernameElement.textContent = post.user;
+
       userElement.appendChild(usernameElement);
       headerElement.appendChild(userElement);
 
@@ -127,52 +127,50 @@ async function cargarPosts() {
       contentElement.textContent = post.content;
       postElement.appendChild(contentElement);
 
-      // Dentro de la función cargarPosts
-
       if (post.image) {
         const imageElement = document.createElement("img");
         imageElement.classList.add("post-image");
         imageElement.src = post.image;
         imageElement.addEventListener("click", () =>
           openImageModal(post.image)
-        ); // Agregar evento de clic
+        );
         postElement.appendChild(imageElement);
-      }
-
-      // Función para abrir la imagen en un modal
-      // Función para abrir la imagen en un modal con funcionalidad de zoom
-      function openImageModal(imageSrc) {
-        Swal.fire({
-          imageUrl: imageSrc,
-          showConfirmButton: false, // Oculta el botón de confirmación
-          allowOutsideClick: true, // Permite cerrar el modal haciendo clic fuera de él
-          customClass: {
-            popup: "custom-modal-popup", // Clase CSS personalizada para el modal
-          },
-          didOpen: () => {
-            const imageElement = document.querySelector(".swal2-image");
-
-            imageElement.addEventListener("wheel", function (event) {
-              event.preventDefault();
-              const delta = Math.max(
-                -1,
-                Math.min(1, event.deltaY || -event.detail)
-              );
-              const zoomValue = parseInt(this.style.zoom || 100);
-              const newZoomValue = zoomValue + delta * 10; // Ajusta la velocidad de zoom según sea necesario
-              this.style.zoom = `${newZoomValue}%`;
-            });
-          },
-        });
       }
 
       const likeButton = document.createElement("button");
       likeButton.classList.add("like-button");
-      likeButton.innerHTML = `<i class="fas fa-thumbs-up"></i> <span>${
-        post.likes ?? 0
-      }</span>`;
+      likeButton.innerHTML = `<i class="fas fa-thumbs-up"></i> <span>${post.likes ?? 0}</span>`;
       likeButton.addEventListener("click", () => handleLike(post._id));
       headerElement.appendChild(likeButton);
+
+      const commButton = document.createElement("button");
+      commButton.classList.add("comment-button");
+      commButton.innerHTML = `<i class="fas fa-comments"></i> <span>${post.comments.length ?? 0}</span>`;
+      commButton.addEventListener("click", () => {
+        openCommentModal(post._id);
+      });
+      headerElement.appendChild(commButton);
+
+      // Mostrar los comentarios debajo del post
+      const commentsContainer = document.createElement("div");
+      commentsContainer.classList.add("comments-container");
+      post.comments.forEach(comment => {
+        const commentElement = document.createElement("div");
+        commentElement.classList.add("comment");
+
+        const commentUser = document.createElement("p");
+        commentUser.classList.add("comment-user");
+        commentUser.textContent = `Usuario: ${comment.user}`;
+
+        const commentContent = document.createElement("p");
+        commentContent.classList.add("comment-content");
+        commentContent.textContent = comment.content;
+
+        commentElement.appendChild(commentUser);
+        commentElement.appendChild(commentContent);
+        commentsContainer.appendChild(commentElement);
+      });
+      postElement.appendChild(commentsContainer);
 
       container.appendChild(postElement);
     });
@@ -180,6 +178,7 @@ async function cargarPosts() {
     console.error("Error al cargar los posts:", error);
   }
 }
+
 
 async function handleLike(postId) {
   const user = localStorage.getItem("username");
@@ -229,5 +228,99 @@ async function borrarPost(postId) {
     console.error("Error al borrar el post:", error);
   }
 }
+async function openCommentModal(postId) {
+  try {
+    const { value: commentContent } = await Swal.fire({
+      title: "Nuevo Comentario",
+      input: "textarea",
+      inputLabel: "Ingresa tu comentario",
+      inputPlaceholder: "Escribe tu comentario aquí...",
+      showCancelButton: true,
+      confirmButtonText: "Publicar",
+      cancelButtonText: "Cancelar",
+      inputValidator: (value) => {
+        if (!value) {
+          return "Debes ingresar un comentario";
+        }
+      },
+    });
+
+    if (commentContent) {
+      const user = localStorage.getItem("username");
+
+      const commentData = {
+        postId: postId,
+        content: commentContent,
+        user: user,
+      };
+
+      await saveComment(commentData);
+      Swal.fire({
+        title: "Éxito",
+        text: "Los datos se han editado correctamente",
+        icon: "success",
+        confirmButtonText: "Aceptar",
+      }).then(() => {
+        location.reload(); // Recargar la página después de cerrar la alerta
+      });
+    }
+  } catch (error) {
+    console.error("Error al abrir el modal de comentario:", error);
+  }
+  
+}
+async function saveComment(commentData) {
+  try {
+    const response = await fetch("/crearComentario", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(commentData),
+    });
+
+    if (!response.ok) {
+      throw new Error("Error al guardar el comentario.");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error al guardar el comentario:", error);
+    throw error;
+  }
+  
+}
+
+// Función para obtener y mostrar comentarios para un post específico
+async function obtenerComentarios(commentIds) {
+  try {
+    const container = document.getElementById("small-posts-container");
+    container.innerHTML = ""; // Limpiar el contenedor
+
+    const comments = await Promise.all(commentIds.map(async (commentId) => {
+      const response = await fetch(`/obtenerComentario/${commentId}`);
+      return response.json();
+    }));
+
+    comments.forEach((comment) => {
+      const commentElement = document.createElement("div");
+      commentElement.classList.add("small-post");
+
+      const userElement = document.createElement("p");
+      userElement.textContent = `Usuario: ${comment.user}`;
+      commentElement.appendChild(userElement);
+
+      const contentElement = document.createElement("p");
+      contentElement.textContent = comment.content;
+      commentElement.appendChild(contentElement);
+
+      container.appendChild(commentElement);
+      
+    });
+  } catch (error) {
+    console.error("Error al obtener los comentarios:", error);
+  }
+}
+
 
 document.addEventListener("DOMContentLoaded", cargarPosts);

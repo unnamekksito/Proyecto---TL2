@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, "public", "controlador")));
 app.use(express.static(path.join(__dirname, "public", "modelo")));
 
 //INICIO MONGO DB
-const uri = "mongodb://localhost:27017/"; // URI de conexión a tu base de datos MongoDB
+const uri = "mongodb://127.0.0.1:60228/868d0b2b-7d04-49c4-a288-87e6ac025551?"; // URI de conexión a tu base de datos MongoDB
 const client = new MongoClient(uri);
 
 async function ConectarMongoDB() {
@@ -344,7 +344,8 @@ app.post("/crearPosts", async (req, res) => {
       image: image || null, // Si no se proporciona una imagen, establecerla como null
       user: user,
       likes: 0,
-      likedBy: []
+      likedBy: [],
+      comments: [],
     };
 
     // Insertar el nuevo post en la colección
@@ -357,6 +358,36 @@ app.post("/crearPosts", async (req, res) => {
     res.status(500).json({ message: "Error al crear el post" });
   }
 });
+
+app.post("/crearComentario", async (req, res) => {
+  try {
+    const db = client.db("BlogiSoft");
+    const postsCollection = db.collection("datosPosts");
+
+    // Obtener los datos del comentario desde el cuerpo de la solicitud
+    const { postId, content, user } = req.body;
+
+    // Crear el documento del comentario
+    const newComment = {
+      content: content,
+      user: user,
+    };
+
+    // Agregar el comentario al post correspondiente
+    await postsCollection.updateOne(
+      { _id: new ObjectId(postId) },
+      { $push: { comments: newComment } }
+    );
+
+    // Enviar una respuesta al cliente
+    res.status(201).json({ message: "Comentario creado exitosamente" });
+  } catch (error) {
+    console.error("Error al crear el comentario:", error);
+    res.status(500).json({ message: "Error al crear el comentario" });
+  }
+});
+
+
 app.post("/likePost/:postId", async (req, res) => {
   try {
     const db = client.db("BlogiSoft");
@@ -405,6 +436,7 @@ app.get('/obtenerPosts', async (req, res) => {
     const postsCollection = db.collection("datosPosts");
 
     const posts = await postsCollection.find().toArray();
+    
 
     res.status(200).json(posts);
   } catch (error) {
@@ -433,6 +465,50 @@ app.delete("/borrarPost/:id", async (req, res) => {
     res.status(500).json({ message: "Error al borrar el post" });
   }
 });
+
+// Ruta para crear un nuevo comentario (post relacionado)
+app.post("/crearComentario", async (req, res) => {
+  try {
+    const db = client.db("BlogiSoft");
+    const commentsCollection = db.collection("comentarios");
+
+    // Obtener los datos del comentario desde el cuerpo de la solicitud
+    const { postId, content, user } = req.body;
+
+    // Crear el documento del comentario
+    const newComment = {
+      postId: postId, // ID del post original
+      content: content,
+      user: user,
+    };
+
+    // Insertar el nuevo comentario en la colección de comentarios
+    await commentsCollection.insertOne(newComment);
+
+    // Enviar una respuesta al cliente
+    res.status(201).json({ message: "Comentario creado exitosamente" });
+  } catch (error) {
+    console.error("Error al crear el comentario:", error);
+    res.status(500).json({ message: "Error al crear el comentario" });
+  }
+});
+
+app.get('/obtenerComentarios/:postId', async (req, res) => {
+  try {
+    const db = client.db("BlogiSoft");
+    const commentsCollection = db.collection("comentarios");
+
+    const postId = req.params.postId;
+    const comments = await commentsCollection.find({ postId: postId }).toArray();
+
+    res.status(200).json(comments);
+  } catch (error) {
+    console.error("Error al obtener los comentarios:", error);
+    res.status(500).json({ message: "Error al obtener los comentarios" });
+  }
+});
+
+
 
 // Iniciar el servidor
 app.listen(port, () => {
