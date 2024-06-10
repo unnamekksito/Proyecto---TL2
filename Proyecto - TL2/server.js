@@ -32,7 +32,7 @@ app.use(express.static(path.join(__dirname, "public", "controlador")));
 app.use(express.static(path.join(__dirname, "public", "modelo")));
 
 //INICIO MONGO DB
-const uri = "mongodb://127.0.0.1:60228/868d0b2b-7d04-49c4-a288-87e6ac025551?"; // URI de conexión a tu base de datos MongoDB
+const uri = "mongodb://localhost:27017/"; // URI de conexión a tu base de datos MongoDB
 const client = new MongoClient(uri);
 
 async function ConectarMongoDB() {
@@ -376,6 +376,7 @@ app.post("/crearPosts", async (req, res) => {
     res.status(500).json({ message: "Error al crear el post" });
   }
 });
+
 app.post("/likePost/:postId", async (req, res) => {
   try {
     const db = client.db("BlogiSoft");
@@ -495,8 +496,6 @@ app.get('/obtenerComentarios/:postId', async (req, res) => {
     res.status(500).json({ message: "Error al obtener los comentarios" });
   }
 });
-
-
 
 // Iniciar el servidor
 app.listen(port, () => {
