@@ -338,3 +338,103 @@ footer {
 .social-icons a:hover {
   color: #ddd;
 }
+
+
+/* Media Queries para Responsividad */
+
+@media (max-width: 1200px) {
+  .header h1, .header span, .home-button a, .post-button a {
+    font-size: 30px;
+  }
+
+  .post-title {
+    font-size: 18px;
+  }
+
+  .navbar {
+    width: 250px;
+    left: -250px;
+  }
+
+  .navbar.open {
+    left: 0;
+  }
+
+  .nava li {
+    font-size: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header h1, .header span, .home-button a, .post-button a {
+    font-size: 24px;
+  }
+
+  .home-button {
+    right: 15px;
+  }
+
+  .post-button {
+    right: 150px;
+  }
+
+  .navbar {
+    width: 200px;
+    left: -200px;
+  }
+
+  .navbar.open {
+    left: 0;
+  }
+
+  .nava li {
+    font-size: 24px;
+  }
+
+  .slider-container {
+    max-width: 100px;
+  }
+
+  .slider img {
+    width: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header h1, .header span, .home-button a, .post-button a {
+    font-size: 18px;
+  }
+
+  .home-button {
+    right: 10px;
+  }
+
+  .post-button {
+    right: 100px;
+  }
+
+  .navbar {
+    width: 150px;
+    left: -150px;
+  }
+
+  .navbar.open {
+    left: 0;
+  }
+
+  .nava li {
+    font-size: 18px;
+  }
+
+  .slider-container {
+    max-width: 80px;
+  }
+
+  .slider img {
+    width: 60px;
+  }
+
+  .container {
+    padding: 10px;
+  }
+}
