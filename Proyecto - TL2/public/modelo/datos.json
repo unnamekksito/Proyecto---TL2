@@ -78,5 +78,15 @@
     "birthDate": "2002-02-12",
     "password": "luz123",
     "level": "User"
+  },
+  {
+    "name": "Harold",
+    "lastName": "Hoyos",
+    "username": "Harold",
+    "email": "harold@gmail.com",
+    "gender": "Masculino",
+    "birthDate": "2005-09-19",
+    "password": "hola123",
+    "level": "User"
   }
 ]
