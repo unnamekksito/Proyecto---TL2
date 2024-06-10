@@ -398,36 +398,6 @@ app.post("/likePost/:postId", async (req, res) => {
   }
 });
 
-async function handleLike(postId) {
-  const user = localStorage.getItem("username");
-
-  try {
-    const response = await fetch(`/likePost/${postId}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ user }),
-    });
-
-    if (response.ok) {
-      const postElement = document.querySelector(`[data-post-id="${postId}"]`);
-      const likeCount = postElement.querySelector('.like-button span');
-      const isLiked = postElement.querySelector('.like-button').classList.toggle('liked');
-
-      if (isLiked) {
-        likeCount.textContent = parseInt(likeCount.textContent) + 1;
-      } else {
-        likeCount.textContent = parseInt(likeCount.textContent) - 1;
-      }
-    } else {
-      const result = await response.json();
-      alert(result.message);
-    }
-  } catch (error) {
-    console.error("Error al dar like:", error);
-  }
-}
 
 app.get('/obtenerPosts', async (req, res) => {
   try {

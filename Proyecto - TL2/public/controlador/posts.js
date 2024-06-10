@@ -137,6 +137,38 @@ async function cargarPosts() {
     console.error("Error al cargar los posts:", error);
   }
 }
+async function handleLike(postId) {
+  const user = localStorage.getItem("username");
+
+  try {
+    const response = await fetch(`/likePost/${postId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ user }),
+    });
+
+    if (response.ok) {
+      const postElement = document.querySelector(`[data-post-id="${postId}"]`);
+      const likeButton = postElement.querySelector('.like-button');
+      const likeCount = likeButton.querySelector('span');
+      const isLiked = likeButton.classList.toggle('liked');
+
+      if (isLiked) {
+        likeCount.textContent = parseInt(likeCount.textContent) + 1;
+      } else {
+        likeCount.textContent = parseInt(likeCount.textContent) - 1;
+      }
+    } else {
+      const result = await response.json();
+      alert(result.message);
+    }
+  } catch (error) {
+    console.error("Error al dar like:", error);
+  }
+  location.reload();
+}
 
 async function borrarPost(postId) {
   try {
