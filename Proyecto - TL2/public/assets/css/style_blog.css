@@ -208,7 +208,6 @@ header span {
   width: 100%; 
 }
 
-
 .post-container {
   border: 1px solid #ccc;
   padding: 20px;
@@ -218,7 +217,9 @@ header span {
 }
 
 .post {
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   margin-bottom: 20px;
   padding: 20px;
   border-radius: 8px;
@@ -227,15 +228,20 @@ header span {
   position: relative;
 }
 
-.post button {
-  background-color: transparent;
-  border: none;
-  color: red;
-  font-size: 20px;
-  cursor: pointer;
-  position: absolute;
-  top: 10px;
-  right: 10px;
+.post {
+  position: relative;
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
 .like-button {
@@ -248,8 +254,8 @@ header span {
   color: #007bff;
   font-size: 1.2em;
   padding: 0;
-  margin-top: 40px;
 }
+
 
 .like-button i {
   margin-right: 5px;
@@ -267,17 +273,18 @@ header span {
 .post-user {
   font-size: 14px;
   font-weight: bold;
+  margin-bottom: 5px;
   color: #555;
 }
 
 .post-title {
   font-size: 20px;
-  margin: 0;
+  margin-top: 0;
   margin-bottom: 10px;
 }
 
 .post-content {
-  margin: 0;
+  margin-top: 10px;
   margin-bottom: 10px;
 }
 
@@ -301,7 +308,6 @@ header span {
   color: darkred;
 }
 
-/* Estilos del pie de página */
 footer {
   margin-top: auto;
   background-image: linear-gradient(
