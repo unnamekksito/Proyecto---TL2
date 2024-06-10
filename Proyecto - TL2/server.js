@@ -1,5 +1,6 @@
 const express = require("express");
 const { MongoClient } = require("mongodb");
+const { ObjectId } = require("mongodb");
 const jwt = require("jsonwebtoken");
 const fs = require("fs").promises;
 const path = require("path");
@@ -348,14 +349,16 @@ app.post("/crearPosts", async (req, res) => {
     const result = await postsCollection.insertOne(newPost);
 
     // Enviar una respuesta al cliente
-    res.status(201).json({ message: "Post creado exitosamente", postId: result.insertedId });
+    res
+      .status(201)
+      .json({ message: "Post creado exitosamente", postId: result.insertedId });
   } catch (error) {
     console.error("Error al crear el post:", error);
     res.status(500).json({ message: "Error al crear el post" });
   }
 });
 
-app.get('/obtenerPosts', async (req, res) => {
+app.get("/obtenerPosts", async (req, res) => {
   try {
     const db = client.db("BlogiSoft");
     const postsCollection = db.collection("datosPosts");
@@ -368,6 +371,27 @@ app.get('/obtenerPosts', async (req, res) => {
   } catch (error) {
     console.error("Error al obtener los posts:", error);
     res.status(500).json({ message: "Error al obtener los posts" });
+  }
+});
+
+app.delete("/borrarPost/:id", async (req, res) => {
+  try {
+    const db = client.db("BlogiSoft");
+    const postsCollection = db.collection("datosPosts");
+
+    const postId = req.params.id;
+    const postIdObject = new ObjectId(postId);
+    const result = await postsCollection.deleteOne({ _id: postIdObject });
+
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ message: "Post no encontrado" });
+    }
+
+    // Enviar una respuesta al cliente
+    res.status(200).json({ message: "Post eliminado exitosamente" });
+  } catch (error) {
+    console.error("Error al borrar el post:", error);
+    res.status(500).json({ message: "Error al borrar el post" });
   }
 });
 

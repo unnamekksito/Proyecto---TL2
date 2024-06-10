@@ -89,6 +89,8 @@ async function cargarPosts() {
     const container = document.getElementById("post-container");
     container.innerHTML = ""; // Limpiar el contenedor
 
+    const userLevel = localStorage.getItem("userLevel");
+
     posts.forEach((post) => {
       const postElement = document.createElement("div");
       postElement.classList.add("post");
@@ -116,10 +118,34 @@ async function cargarPosts() {
         postElement.appendChild(imageElement);
       }
 
+      // Agregar botón de borrado solo para administradores
+      if (userLevel === "Admin") {
+        const deleteButton = document.createElement("button");
+        deleteButton.innerHTML = '<i class="fas fa-trash-alt"></i>';
+        deleteButton.onclick = () => borrarPost(post._id);
+        postElement.appendChild(deleteButton);
+      }
+
       container.appendChild(postElement);
     });
   } catch (error) {
     console.error("Error al cargar los posts:", error);
+  }
+}
+
+async function borrarPost(postId) {
+  try {
+    const response = await fetch(`/borrarPost/${postId}`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      throw new Error("Error al borrar el post.");
+    }
+
+    location.reload(); // Recargar la página después de borrar el post
+  } catch (error) {
+    console.error("Error al borrar el post:", error);
   }
 }
 

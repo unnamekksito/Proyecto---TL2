@@ -208,7 +208,7 @@ header span {
   border: 1px solid #ccc; /* Añadir borde */
   padding: 20px; /* Añadir espacio interno */
   margin-bottom: 20px; /* Añadir espacio entre posts */
-  border-radius: 5px; /* Agregar bordes redondeados */
+  border-radius: 8px; /* Agregar bordes redondeados */
   background-color: #f9f9f9; /* Color de fondo */
 }
 
@@ -217,33 +217,52 @@ header span {
   flex-direction: column;
   justify-content: flex-start;
   margin-bottom: 20px;
-  padding: 10px;
-  border-radius: 5px;
+  padding: 20px;
+  border-radius: 8px;
   background-color: #fff;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  position: relative; /* Necesario para el posicionamiento absoluto del botón */
 }
 
 .post-user {
   font-size: 14px;
+  font-weight: bold;
   margin-bottom: 5px;
   color: #555;
 }
 
 .post-title {
   font-size: 20px;
+  margin-top: 0;
   margin-bottom: 10px;
 }
 
 .post-content {
+  margin-top: 10px;
   margin-bottom: 10px;
 }
 
 .post-image {
-  max-width: 150px;
-  max-height: 150px;
+  max-width: 100%;
+  height: auto;
   border-radius: 5px;
   object-fit: cover;
   align-self: flex-end;
+}
+
+.post button {
+  background-color: transparent;
+  border: none;
+  color: red;
+  font-size: 20px;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.post button:hover {
+  color: darkred;
 }
 
 /* Estilos del pie de página */
