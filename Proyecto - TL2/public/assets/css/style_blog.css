@@ -300,8 +300,17 @@ header span {
 }
 
 
+body {
+  position: relative; /* Agregamos position: relative al body */
+  min-height: 100vh; /* Aseguramos que el body tenga un mínimo de 100vh de altura */
+  padding-bottom:55px;
+}
 /* Estilos del pie de página */
 footer {
+  position: relative ;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   background-image: linear-gradient(
     to bottom,
     #0077b6 0%,
@@ -313,7 +322,7 @@ footer {
   padding: 20px;
   font-family: "League Gothic", sans-serif;
   font-size: 20px;
-  margin-top: 20px;
+
 }
 
 .social-icons {
