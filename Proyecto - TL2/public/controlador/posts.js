@@ -32,6 +32,16 @@ async function submitPost(postData) {
   try {
     const { title, content, image } = postData;
     const user = localStorage.getItem("username");
+    console.log(image.size);
+
+    // Validar el tamaño de la imagen
+    if (image && image.size > 100 * 1024 * 1024) {
+      // 2MB de límite, puedes ajustar este valor
+      alert(
+        "La imagen es demasiado grande. El tamaño máximo permitido es de 2MB."
+      );
+      return;
+    }
 
     // Crear el cuerpo del post sin imagen inicialmente
     const body = {
@@ -71,10 +81,19 @@ async function sendPost(body) {
     });
 
     if (!response.ok) {
-      throw new Error("Error al publicar el post.");
+      if (response.status === 413) {
+        Swal.fire({
+          title: "Error",
+          text: "La imagen es demasiado grande",
+          icon: "error",
+          confirmButtonText: "Aceptar",
+        });
+      } else {
+        throw new Error("Error al publicar el post.");
+      }
+    } else {
+      location.reload(); // Recargar la página después de enviar el post
     }
-
-    location.reload(); // Recargar la página después de enviar el post
   } catch (error) {
     console.error("Error al enviar el post:", error);
   }
