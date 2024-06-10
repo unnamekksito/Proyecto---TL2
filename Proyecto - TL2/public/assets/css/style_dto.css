@@ -12,6 +12,10 @@ body {
   padding: 0;
   background-color: #f4f4f4;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%; 
 }
 
 header {
@@ -24,6 +28,8 @@ header {
   );
   text-align: center;
   padding: 20px 0;
+  width: 100%; 
+
 }
 
 header h1 {
@@ -310,18 +316,18 @@ table td:last-child {
 
 /* Estilos del pie de página */
 footer {
+  margin-top: auto;
   background-image: linear-gradient(
     to bottom,
     #0077b6 0%,
-    /* Azul más claro en la parte superior */ rgba(0, 93, 158, 0.5) 100%
-      /* Azul más oscuro en la parte inferior con una opacidad del 50% */
+    rgba(0, 93, 158, 0.5) 100%
   );
   color: lavenderblush;
   text-align: center;
   padding: 20px;
   font-family: "League Gothic", sans-serif;
   font-size: 20px;
-  margin-top: 20px;
+  width: 100%;
 }
 
 .social-icons {

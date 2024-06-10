@@ -8,6 +8,10 @@ body {
   padding: 0;
   background-color: #f4f4f4;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%; 
 }
 
 header {
@@ -15,11 +19,11 @@ header {
   background-image: linear-gradient(
     to bottom,
     #0077b6 0%,
-    /* Azul más claro en la parte superior */ rgba(0, 93, 158, 0.5) 100%
-      /* Azul más oscuro en la parte inferior con una opacidad del 50% */
+    rgba(0, 93, 158, 0.5) 100%
   );
   text-align: center;
   padding: 20px 0;
+  width: 100%; 
 }
 
 header h1 {
@@ -38,17 +42,17 @@ header span {
   font-family: "Lobster";
 }
 
-/* Estilos para el botón "Home" */
 .home-button,
 .post-button {
   position: absolute;
-  top: 30px; /* Alinea verticalmente el botón con el menú */
+  top: 30px;
   z-index: 999;
 }
 
 .home-button {
   right: 20px;
 }
+
 .post-button {
   right: 200px;
   cursor: pointer;
@@ -71,7 +75,7 @@ header span {
   background-color: white;
   color: #033c7c;
 }
-/* Estilos del menú hamburguesa */
+
 .menu {
   border: 0;
   background-color: transparent;
@@ -79,10 +83,10 @@ header span {
   cursor: pointer;
   z-index: 1000;
   position: absolute;
-  top: 20px; /* Ajusta la distancia desde la parte superior */
-  left: 20px; /* Ajusta la distancia desde la izquierda */
-  font-size: 30px; /* Aumenta el tamaño del ícono */
-  color: lavender; /* Color del ícono */
+  top: 20px;
+  left: 20px;
+  font-size: 30px;
+  color: lavender;
   display: flex;
   align-items: center;
 }
@@ -92,7 +96,7 @@ header span {
 }
 
 .menu span {
-  margin-left: 10px; /* Espacio entre el icono y el texto */
+  margin-left: 10px;
 }
 
 .menu .fas.fa-times {
@@ -113,16 +117,16 @@ header span {
   width: 300px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* Cambiado de center a flex-start */
-  left: -300px; /* Oculta el menú fuera de la pantalla */
+  justify-content: flex-start;
+  left: -300px;
   transition: left 0.3s ease;
   top: 0;
-  background-color: #234567; /* Fondo del menú */
+  background-color: #234567;
   z-index: 1;
 }
 
 .navbar.open {
-  left: 0; /* Muestra el menú cuando está abierto */
+  left: 0;
 }
 
 .nava {
@@ -132,18 +136,18 @@ header span {
   justify-content: space-between;
   height: 100%;
   padding: 150px 0px;
-  list-style: none; /* Quita los puntos de lista */
+  list-style: none;
 }
 
 .nava li {
   font-size: 40px;
-  margin: 10px 20px; /* Ajuste de margen para alinear a la izquierda */
+  margin: 10px 20px;
 }
 
 .nava li a {
   font-family: "League Gothic", sans-serif;
-  color: lavender; /* Cambia el color de las opciones del menú a lavender */
-  text-align: left; /* Alinea el texto a la izquierda */
+  color: lavender;
+  text-align: left;
   text-decoration: none;
 }
 
@@ -151,17 +155,16 @@ header span {
   color: #fff;
 }
 
-/* Estilos del slider */
 .slider-container {
   display: flex;
   position: relative;
   margin: 0 auto;
-  width: 100%; /* Ajusta el ancho del contenedor al 100% */
-  max-width: 150px; /* Ancho máximo del contenedor igual al ancho de las imágenes */
-  height: auto; /* Altura automática para adaptarse al tamaño de las imágenes */
+  width: 100%;
+  max-width: 150px;
+  height: auto;
   overflow: hidden;
   padding-left: 50px;
-  z-index: 1; /* Añadido para asegurar que el slider esté detrás del menú */
+  z-index: 1;
 }
 
 .slider {
@@ -202,14 +205,15 @@ header span {
   max-width: 800px;
   margin: 50px auto;
   padding: 20px;
+  width: 100%; 
 }
-/* Estilos para el contenedor de posts */
+
 .post-container {
-  border: 1px solid #ccc; /* Añadir borde */
-  padding: 20px; /* Añadir espacio interno */
-  margin-bottom: 20px; /* Añadir espacio entre posts */
-  border-radius: 8px; /* Agregar bordes redondeados */
-  background-color: #f9f9f9; /* Color de fondo */
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
 }
 
 .post {
@@ -221,8 +225,9 @@ header span {
   border-radius: 8px;
   background-color: #fff;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-  position: relative; /* Necesario para el posicionamiento absoluto del botón */
+  position: relative;
 }
+
 .post button {
   background-color: transparent;
   border: none;
@@ -234,7 +239,6 @@ header span {
   right: 10px;
 }
 
-/* Añadir estilos para el botón de like */
 .like-button {
   background: none;
   border: none;
@@ -242,7 +246,7 @@ header span {
   cursor: pointer;
   font-size: 1.2em;
   padding: 0;
-  margin-top: 40px; /* Espacio añadido para separar del botón de eliminar */
+  margin-top: 40px;
 }
 
 .like-button i {
@@ -299,30 +303,19 @@ header span {
   color: darkred;
 }
 
-
-body {
-  position: relative; /* Agregamos position: relative al body */
-  min-height: 100vh; /* Aseguramos que el body tenga un mínimo de 100vh de altura */
-  padding-bottom:55px;
-}
-/* Estilos del pie de página */
 footer {
-  position: relative ;
-  bottom: 0;
-  left: 0;
-  width: 100%;
+  margin-top: auto;
   background-image: linear-gradient(
     to bottom,
     #0077b6 0%,
-    /* Azul más claro en la parte superior */ rgba(0, 93, 158, 0.5) 100%
-      /* Azul más oscuro en la parte inferior con una opacidad del 50% */
+    rgba(0, 93, 158, 0.5) 100%
   );
   color: lavenderblush;
   text-align: center;
   padding: 20px;
   font-family: "League Gothic", sans-serif;
   font-size: 20px;
-
+  width: 100%;
 }
 
 .social-icons {
