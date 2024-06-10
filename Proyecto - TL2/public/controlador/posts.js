@@ -36,11 +36,13 @@ async function submitPost(postData) {
     reader.readAsDataURL(image);
     reader.onloadend = async () => {
       const imageDataUrl = reader.result;
+      const user = localStorage.getItem("username");
 
       const body = {
         title: title,
         content: content,
         image: imageDataUrl,
+        user: user,
       };
 
       console.log(body);
@@ -70,16 +72,19 @@ async function cargarPosts() {
     const posts = await response.json();
 
     const container = document.getElementById("post-container");
-    container.innerHTML = ""; // Limpiamos el contenedor
+    container.innerHTML = ""; // Limpiar el contenedor
 
     posts.forEach((post) => {
-      const postContainer = document.createElement("div");
-      postContainer.classList.add("post-container"); // Agregamos una clase para cada contenedor
-      postContainer.classList.add("post"); // Agregamos clase post
+      const postElement = document.createElement("div");
+      postElement.classList.add("post");
 
       const titleElement = document.createElement("h2");
       titleElement.classList.add("post-title");
       titleElement.textContent = post.title;
+
+      const userElement = document.createElement("p");
+      userElement.classList.add("post-user");
+      userElement.textContent = `Posted by: ${post.user}`;
 
       const contentElement = document.createElement("div");
       contentElement.classList.add("post-content");
@@ -89,11 +94,12 @@ async function cargarPosts() {
       imageElement.classList.add("post-image");
       imageElement.src = post.image || "../assets/images/software-login.png"; // Si no hay imagen, mostrar una de relleno
 
-      postContainer.appendChild(titleElement);
-      postContainer.appendChild(contentElement);
-      postContainer.appendChild(imageElement);
+      postElement.appendChild(titleElement);
+      postElement.appendChild(userElement);
+      postElement.appendChild(contentElement);
+      postElement.appendChild(imageElement);
 
-      container.appendChild(postContainer);
+      container.appendChild(postElement);
     });
   } catch (error) {
     console.error("Error al cargar los posts:", error);

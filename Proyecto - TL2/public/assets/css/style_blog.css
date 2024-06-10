@@ -39,21 +39,23 @@ header span {
 }
 
 /* Estilos para el botón "Home" */
-.home-button, .post-button {
+.home-button,
+.post-button {
   position: absolute;
   top: 30px; /* Alinea verticalmente el botón con el menú */
   z-index: 999;
 }
 
-.home-button{
+.home-button {
   right: 20px;
 }
-.post-button{
+.post-button {
   right: 200px;
   cursor: pointer;
 }
 
-.home-button a,.post-button a {
+.home-button a,
+.post-button a {
   text-decoration: none;
   font-size: 40px;
   font-weight: 600;
@@ -64,7 +66,8 @@ header span {
   border-radius: 5px;
 }
 
-.home-button a:hover, .post-button a:hover{
+.home-button a:hover,
+.post-button a:hover {
   background-color: white;
   color: #033c7c;
 }
@@ -210,9 +213,15 @@ header span {
 }
 
 .post {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
   margin-bottom: 20px;
   padding: 10px;
   border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
 .post-title {
@@ -220,13 +229,22 @@ header span {
   margin-bottom: 5px;
 }
 
-.post-content {
+.post-user {
+  font-size: 14px;
   margin-bottom: 10px;
+  color: #555;
+}
+
+.post-content {
+  flex-grow: 1;
+  margin-right: 20px;
 }
 
 .post-image {
-  max-width: 100%;
+  max-width: 150px;
+  max-height: 150px;
   border-radius: 5px;
+  object-fit: cover;
 }
 
 /* Estilos del pie de página */
@@ -260,5 +278,3 @@ footer {
 .social-icons a:hover {
   color: #ddd;
 }
-
-

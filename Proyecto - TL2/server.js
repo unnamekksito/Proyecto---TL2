@@ -334,22 +334,21 @@ app.post("/crearPosts", async (req, res) => {
     const postsCollection = db.collection("datosPosts");
 
     // Obtener los datos del post desde el cuerpo de la solicitud
-    const { title, content, image } = req.body;
+    const { title, content, image, user } = req.body;
 
     // Crear el documento del post
     const newPost = {
       title: title,
       content: content,
       image: image || null, // Si no se proporciona una imagen, establecerla como null
+      user: user,
     };
 
     // Insertar el nuevo post en la colección
     const result = await postsCollection.insertOne(newPost);
 
     // Enviar una respuesta al cliente
-    res
-      .status(201)
-      .json({ message: "Post creado exitosamente", postId: result.insertedId });
+    res.status(201).json({ message: "Post creado exitosamente", postId: result.insertedId });
   } catch (error) {
     console.error("Error al crear el post:", error);
     res.status(500).json({ message: "Error al crear el post" });
