@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, "public", "controlador")));
 app.use(express.static(path.join(__dirname, "public", "modelo")));
 
 //INICIO MONGO DB
-const uri = "mongodb://localhost:27017/"; // URI de conexión a tu base de datos MongoDB
+const uri = "mongodb://127.0.0.1:58210/dad7da2b-ef71-457c-b8b5-4d71fb6ade73?"; // URI de conexión a tu base de datos MongoDB
 const client = new MongoClient(uri);
 
 async function ConectarMongoDB() {
@@ -343,30 +343,99 @@ app.post("/crearPosts", async (req, res) => {
       content: content,
       image: image || null, // Si no se proporciona una imagen, establecerla como null
       user: user,
+      likes: 0,
+      likedBy: []
     };
 
     // Insertar el nuevo post en la colección
     const result = await postsCollection.insertOne(newPost);
 
     // Enviar una respuesta al cliente
-    res
-      .status(201)
-      .json({ message: "Post creado exitosamente", postId: result.insertedId });
+    res.status(201).json({ message: "Post creado exitosamente", postId: result.insertedId });
   } catch (error) {
     console.error("Error al crear el post:", error);
     res.status(500).json({ message: "Error al crear el post" });
   }
 });
-
-app.get("/obtenerPosts", async (req, res) => {
+app.post("/likePost/:postId", async (req, res) => {
   try {
     const db = client.db("BlogiSoft");
     const postsCollection = db.collection("datosPosts");
 
-    // Obtener todos los posts de la colección
+    const postId = req.params.postId;
+    const { user } = req.body;
+
+    const post = await postsCollection.findOne({ _id: new ObjectId(postId) });
+
+    if (!post) {
+      return res.status(404).json({ message: "Post no encontrado" });
+    }
+
+    let update;
+    if (post.likedBy.includes(user)) {
+      // Usuario ya dio like, remover like
+      update = {
+        $inc: { likes: -1 },
+        $pull: { likedBy: user }
+      };
+    } else {
+      // Usuario no ha dado like, agregar like
+      update = {
+        $inc: { likes: 1 },
+        $push: { likedBy: user }
+      };
+    }
+
+    await postsCollection.updateOne(
+      { _id: new ObjectId(postId) },
+      update
+    );
+
+    res.status(200).json({ message: "Like actualizado exitosamente" });
+  } catch (error) {
+    console.error("Error al actualizar el like:", error);
+    res.status(500).json({ message: "Error al actualizar el like" });
+  }
+});
+
+async function handleLike(postId) {
+  const user = localStorage.getItem("username");
+
+  try {
+    const response = await fetch(`/likePost/${postId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ user }),
+    });
+
+    if (response.ok) {
+      const postElement = document.querySelector(`[data-post-id="${postId}"]`);
+      const likeCount = postElement.querySelector('.like-button span');
+      const isLiked = postElement.querySelector('.like-button').classList.toggle('liked');
+
+      if (isLiked) {
+        likeCount.textContent = parseInt(likeCount.textContent) + 1;
+      } else {
+        likeCount.textContent = parseInt(likeCount.textContent) - 1;
+      }
+    } else {
+      const result = await response.json();
+      alert(result.message);
+    }
+  } catch (error) {
+    console.error("Error al dar like:", error);
+  }
+}
+
+app.get('/obtenerPosts', async (req, res) => {
+  try {
+    const db = client.db("BlogiSoft");
+    const postsCollection = db.collection("datosPosts");
+
     const posts = await postsCollection.find().toArray();
 
-    // Enviar los posts como respuesta al cliente
     res.status(200).json(posts);
   } catch (error) {
     console.error("Error al obtener los posts:", error);

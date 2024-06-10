@@ -58,5 +58,15 @@
     "birthDate": "2002-02-12",
     "password": "prueba123",
     "level": "User"
+  },
+  {
+    "name": "Estoy",
+    "lastName": "Mamao",
+    "username": "EstoyMamao",
+    "email": "mamao@gmail.com",
+    "gender": "Masculino",
+    "birthDate": "2006-06-06",
+    "password": "estoymamao123",
+    "level": "User"
   }
 ]

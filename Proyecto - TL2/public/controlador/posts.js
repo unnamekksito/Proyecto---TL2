@@ -117,6 +117,10 @@ async function cargarPosts() {
         imageElement.src = post.image;
         postElement.appendChild(imageElement);
       }
+      const likeButton = document.createElement("megusta");
+      likeButton.classList.add("like-button");
+      likeButton.innerHTML = `<i class="fas fa-regular fas fa-thumbs-up"></i> <span>${post.likes ?? 0}</span>`;
+      likeButton.addEventListener("click", () => handleLike(post._id));
 
       // Agregar botón de borrado solo para administradores
       if (userLevel === "Admin") {
@@ -125,8 +129,9 @@ async function cargarPosts() {
         deleteButton.onclick = () => borrarPost(post._id);
         postElement.appendChild(deleteButton);
       }
-
+      postElement.appendChild(likeButton);
       container.appendChild(postElement);
+      
     });
   } catch (error) {
     console.error("Error al cargar los posts:", error);

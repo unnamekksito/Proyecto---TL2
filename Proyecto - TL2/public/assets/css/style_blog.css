@@ -223,6 +223,40 @@ header span {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   position: relative; /* Necesario para el posicionamiento absoluto del botón */
 }
+.post button {
+  background-color: transparent;
+  border: none;
+  color: red;
+  font-size: 20px;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+/* Añadir estilos para el botón de like */
+.like-button {
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  font-size: 1.2em;
+  padding: 0;
+  margin-top: 40px; /* Espacio añadido para separar del botón de eliminar */
+}
+
+.like-button i {
+  margin-right: 5px;
+}
+
+.like-button:hover {
+  color: #0056b3;
+}
+
+.like-button span {
+  margin-left: 5px;
+  font-size: 0.9em;
+}
 
 .post-user {
   font-size: 14px;
@@ -264,6 +298,7 @@ header span {
 .post button:hover {
   color: darkred;
 }
+
 
 /* Estilos del pie de página */
 footer {
