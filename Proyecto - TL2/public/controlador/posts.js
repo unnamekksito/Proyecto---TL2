@@ -31,37 +31,52 @@ function openPostModal() {
 async function submitPost(postData) {
   try {
     const { title, content, image } = postData;
+    const user = localStorage.getItem("username");
 
-    const reader = new FileReader();
-    reader.readAsDataURL(image);
-    reader.onloadend = async () => {
-      const imageDataUrl = reader.result;
-      const user = localStorage.getItem("username");
-
-      const body = {
-        title: title,
-        content: content,
-        image: imageDataUrl,
-        user: user,
-      };
-
-      console.log(body);
-      const response = await fetch("/crearPosts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      });
-
-      if (!response.ok) {
-        throw new Error("Error al publicar el post.");
-      }
-
-      location.reload(); // Recargar la página después de enviar el post
+    // Crear el cuerpo del post sin imagen inicialmente
+    const body = {
+      title: title,
+      content: content,
+      image: null,
+      user: user,
     };
+
+    // Si se proporciona una imagen, convertirla a base64
+    if (image) {
+      const reader = new FileReader();
+      reader.readAsDataURL(image);
+      reader.onloadend = async () => {
+        body.image = reader.result;
+
+        // Enviar el post con la imagen
+        await sendPost(body);
+      };
+    } else {
+      // Enviar el post sin imagen
+      await sendPost(body);
+    }
   } catch (error) {
     console.error(error.message);
+  }
+}
+
+async function sendPost(body) {
+  try {
+    const response = await fetch("/crearPosts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (!response.ok) {
+      throw new Error("Error al publicar el post.");
+    }
+
+    location.reload(); // Recargar la página después de enviar el post
+  } catch (error) {
+    console.error("Error al enviar el post:", error);
   }
 }
 
@@ -78,26 +93,28 @@ async function cargarPosts() {
       const postElement = document.createElement("div");
       postElement.classList.add("post");
 
-      const titleElement = document.createElement("h2");
-      titleElement.classList.add("post-title");
-      titleElement.textContent = post.title;
-
       const userElement = document.createElement("p");
       userElement.classList.add("post-user");
       userElement.textContent = `Posted by: ${post.user}`;
+
+      const titleElement = document.createElement("h2");
+      titleElement.classList.add("post-title");
+      titleElement.textContent = post.title;
 
       const contentElement = document.createElement("div");
       contentElement.classList.add("post-content");
       contentElement.textContent = post.content;
 
-      const imageElement = document.createElement("img");
-      imageElement.classList.add("post-image");
-      imageElement.src = post.image || "../assets/images/software-login.png"; // Si no hay imagen, mostrar una de relleno
-
-      postElement.appendChild(titleElement);
       postElement.appendChild(userElement);
+      postElement.appendChild(titleElement);
       postElement.appendChild(contentElement);
-      postElement.appendChild(imageElement);
+
+      if (post.image) {
+        const imageElement = document.createElement("img");
+        imageElement.classList.add("post-image");
+        imageElement.src = post.image;
+        postElement.appendChild(imageElement);
+      }
 
       container.appendChild(postElement);
     });

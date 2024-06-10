@@ -214,9 +214,8 @@ header span {
 
 .post {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
+  flex-direction: column;
+  justify-content: flex-start;
   margin-bottom: 20px;
   padding: 10px;
   border-radius: 5px;
@@ -224,20 +223,19 @@ header span {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
-.post-title {
-  font-size: 20px;
-  margin-bottom: 5px;
-}
-
 .post-user {
   font-size: 14px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   color: #555;
 }
 
+.post-title {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
 .post-content {
-  flex-grow: 1;
-  margin-right: 20px;
+  margin-bottom: 10px;
 }
 
 .post-image {
@@ -245,6 +243,7 @@ header span {
   max-height: 150px;
   border-radius: 5px;
   object-fit: cover;
+  align-self: flex-end;
 }
 
 /* Estilos del pie de página */
