@@ -1,5 +1,4 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const { MongoClient } = require("mongodb");
 const { ObjectId } = require("mongodb");
 const jwt = require("jsonwebtoken");
@@ -11,10 +10,6 @@ const port = 4200;
 //MANDAR ARCHIVOS PARA QUE SE MUESTREN AL SERVER
 // Middleware para parsear el cuerpo de las solicitudes como JSON
 app.use(express.json());
-
-// Configurar límite de tamaño para las solicitudes
-app.use(bodyParser.json({ limit: '100mb' }));
-app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
 
 // Middleware para servir archivos estáticos desde la carpeta 'public'
 app.use(express.static(path.join(__dirname, "public")));
@@ -333,15 +328,6 @@ app.post("/guardarMisionYVision", async (req, res) => {
 //FIN JSON
 
 //Inicio logica posts
-
-app.use((err, req, res, next) => {
-  if (err.status === 413) {
-    res.status(413).send('La carga útil es demasiado grande. El tamaño máximo permitido es de 100MB.');
-  } else {
-    next(err);
-  }
-});
-
 // Ruta para crear un nuevo post
 app.post("/crearPosts", async (req, res) => {
   try {
@@ -350,10 +336,6 @@ app.post("/crearPosts", async (req, res) => {
 
     // Obtener los datos del post desde el cuerpo de la solicitud
     const { title, content, image, user } = req.body;
-
-    if (!title || !content || !user) {
-      return res.status(400).send('Faltan datos requeridos.');
-    }
 
     // Crear el documento del post
     const newPost = {
@@ -376,6 +358,35 @@ app.post("/crearPosts", async (req, res) => {
     res.status(500).json({ message: "Error al crear el post" });
   }
 });
+
+app.post("/crearComentario", async (req, res) => {
+  try {
+    const db = client.db("BlogiSoft");
+    const postsCollection = db.collection("datosPosts");
+
+    // Obtener los datos del comentario desde el cuerpo de la solicitud
+    const { postId, content, user } = req.body;
+
+    // Crear el documento del comentario
+    const newComment = {
+      content: content,
+      user: user,
+    };
+
+    // Agregar el comentario al post correspondiente
+    await postsCollection.updateOne(
+      { _id: new ObjectId(postId) },
+      { $push: { comments: newComment } }
+    );
+
+    // Enviar una respuesta al cliente
+    res.status(201).json({ message: "Comentario creado exitosamente" });
+  } catch (error) {
+    console.error("Error al crear el comentario:", error);
+    res.status(500).json({ message: "Error al crear el comentario" });
+  }
+});
+
 
 app.post("/likePost/:postId", async (req, res) => {
   try {
@@ -459,7 +470,7 @@ app.delete("/borrarPost/:id", async (req, res) => {
 app.post("/crearComentario", async (req, res) => {
   try {
     const db = client.db("BlogiSoft");
-    const commentsCollection = db.collection("comentarios");
+    const commentsCollection = db.collection("datoPosts");
 
     // Obtener los datos del comentario desde el cuerpo de la solicitud
     const { postId, content, user } = req.body;
@@ -485,7 +496,7 @@ app.post("/crearComentario", async (req, res) => {
 app.get('/obtenerComentarios/:postId', async (req, res) => {
   try {
     const db = client.db("BlogiSoft");
-    const commentsCollection = db.collection("comentarios");
+    const commentsCollection = db.collection("datosPosts");
 
     const postId = req.params.postId;
     const comments = await commentsCollection.find({ postId: postId }).toArray();
@@ -496,6 +507,8 @@ app.get('/obtenerComentarios/:postId', async (req, res) => {
     res.status(500).json({ message: "Error al obtener los comentarios" });
   }
 });
+
+
 
 // Iniciar el servidor
 app.listen(port, () => {

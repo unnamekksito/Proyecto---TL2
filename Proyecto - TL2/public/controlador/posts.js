@@ -156,6 +156,30 @@ async function cargarPosts() {
         postElement.appendChild(imageElement);
       }
 
+      // Función para abrir la imagen en un modal
+      // Función para abrir la imagen en un modal con funcionalidad de zoom
+      function openImageModal(imageSrc) {
+        Swal.fire({
+          imageUrl: imageSrc,
+          showConfirmButton: false, // Oculta el botón de confirmación
+          allowOutsideClick: true, // Permite cerrar el modal haciendo clic fuera de él
+          customClass: {
+            popup: "custom-modal-popup", // Clase CSS personalizada para el modal
+          },
+          didOpen: () => {
+            const imageElement = document.querySelector(".swal2-image");
+
+            imageElement.addEventListener("wheel", function (event) {
+              event.preventDefault();
+              const delta = Math.max(-1, Math.min(1, (event.deltaY  -event.detail)));
+              const zoomValue = parseInt(this.style.zoom||100);
+              const newZoomValue = zoomValue + delta * 10; // Ajusta la velocidad de zoom según sea necesario
+              this.style.zoom = `${newZoomValue}%`;
+            });
+          }
+        });
+      }
+
       const likeButton = document.createElement("button");
       likeButton.classList.add("like-button");
       likeButton.innerHTML = `<i class="fas fa-thumbs-up"></i> <span>${post.likes ?? 0}</span>`;
