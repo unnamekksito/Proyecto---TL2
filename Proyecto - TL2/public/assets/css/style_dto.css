@@ -314,6 +314,43 @@ table td:last-child {
   cursor: pointer;
 }
 
+/* Estilos para los botones */
+button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #033c7c;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Estilos para el buscador */
+#buscarInput {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 300px;
+  max-width: 100%;
+}
+
+#buscarInput:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 119, 255, 0.5);
+}
+
 /* Estilos del pie de página */
 footer {
   margin-top: auto;
