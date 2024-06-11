@@ -32,16 +32,6 @@ async function submitPost(postData) {
   try {
     const { title, content, image } = postData;
     const user = localStorage.getItem("username");
-    console.log(image.size);
-
-    // Validar el tamaño de la imagen
-    if (image && image.size > 100 * 1024 * 1024) {
-      // 2MB de límite, puedes ajustar este valor
-      alert(
-        "La imagen es demasiado grande. El tamaño máximo permitido es de 2MB."
-      );
-      return;
-    }
 
     // Crear el cuerpo del post sin imagen inicialmente
     const body = {
@@ -56,7 +46,18 @@ async function submitPost(postData) {
       const reader = new FileReader();
       reader.readAsDataURL(image);
       reader.onloadend = async () => {
-        body.image = reader.result;
+        const base64Image = reader.result;
+
+        // Validar el tamaño de la imagen en base64
+        if (base64Image.length > 100 * 1024 * 1024) {
+          // 2MB de límite, puedes ajustar este valor
+          alert(
+            "La imagen es demasiado grande. El tamaño máximo permitido es de 2MB."
+          );
+          return;
+        }
+
+        body.image = base64Image;
 
         // Enviar el post con la imagen
         await sendPost(body);
@@ -188,7 +189,7 @@ async function cargarPosts() {
 
       const commButton = document.createElement("button");
       commButton.classList.add("comment-button");
-      commButton.innerHTML = `<i class="fas fa-comments"></i> <span>${post.comments.length ?? 0}</span>`;
+      commButton.innerHTML = `<i class="fas fa-comments"></i> <span>${post.comments?.length ?? 0}</span>`;
       commButton.addEventListener("click", () => {
         openCommentModal(post._id);
       });
@@ -197,22 +198,25 @@ async function cargarPosts() {
       // Mostrar los comentarios debajo del post
       const commentsContainer = document.createElement("div");
       commentsContainer.classList.add("comments-container");
-      post.comments.forEach(comment => {
-        const commentElement = document.createElement("div");
-        commentElement.classList.add("comment");
+      if (Array.isArray(post.comments)){
+        post.comments?.forEach(comment => {
+          const commentElement = document.createElement("div");
+          commentElement.classList.add("comment");
+  
+          const commentUser = document.createElement("p");
+          commentUser.classList.add("comment-user");
+          commentUser.textContent = `Usuario: ${comment.user}`;
+  
+          const commentContent = document.createElement("p");
+          commentContent.classList.add("comment-content");
+          commentContent.textContent = comment.content;
+  
+          commentElement.appendChild(commentUser);
+          commentElement.appendChild(commentContent);
+          commentsContainer.appendChild(commentElement);
+        });
+      }
 
-        const commentUser = document.createElement("p");
-        commentUser.classList.add("comment-user");
-        commentUser.textContent = `Usuario: ${comment.user}`;
-
-        const commentContent = document.createElement("p");
-        commentContent.classList.add("comment-content");
-        commentContent.textContent = comment.content;
-
-        commentElement.appendChild(commentUser);
-        commentElement.appendChild(commentContent);
-        commentsContainer.appendChild(commentElement);
-      });
       postElement.appendChild(commentsContainer);
 
       container.appendChild(postElement);
