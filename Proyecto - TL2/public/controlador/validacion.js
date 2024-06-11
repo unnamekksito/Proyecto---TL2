@@ -188,12 +188,16 @@ async function EnviarDatosEditadosAlServidor(datos, email) {
 }
 
 // Función para cargar y mostrar los datos en la tabla
+let datosOriginales = [];
+let datosFiltrados = [];
+
 async function CargarDatos() {
   try {
     const response = await fetch("/obtenerDatosTabla");
-    const llamada = await fetch("/obtenerDatos");
     if (response.ok) {
       const datos = await response.json();
+      datosOriginales = datos; // Guardar los datos originales sin ordenar
+      datosFiltrados = datos; // Inicialmente, los datos filtrados son iguales a los originales
       MostrarDatosEnTabla(datos);
     } else {
       console.error(
@@ -215,22 +219,53 @@ function MostrarDatosEnTabla(datos) {
     console.log("Dato:", dato); // Agregar este registro para verificar los datos recibidos
     const fila = document.createElement("tr");
     fila.innerHTML = `
-          <td>${dato.name}</td>
-          <td>${dato.lastName}</td>
-          <td>${dato.username}</td>
-          <td>${dato.password}</td>
-          <td>${dato.gender}</td>
-          <td>${dato.birthDate}</td>
-          <td>${dato.email}</td>
-          <td class="acciones">
-          <button onclick="BorrarDato('${dato.email}')"><i class="fas fa-trash-alt"></i></button>
-          <button onclick="HabilitarCampos('${dato.email}')"><i class="fas fa-edit"></i></button>
-    </td
-      `;
+      <td>${dato.name}</td>
+      <td>${dato.lastName}</td>
+      <td>${dato.username}</td>
+      <td>${dato.password}</td>
+      <td>${dato.gender}</td>
+      <td>${dato.birthDate}</td>
+      <td>${dato.email}</td>
+      <td class="acciones">
+        <button onclick="BorrarDato('${dato.email}')"><i class="fas fa-trash-alt"></i></button>
+        <button onclick="HabilitarCampos('${dato.email}')"><i class="fas fa-edit"></i></button>
+      </td>
+    `;
     fila.setAttribute("data-email", dato.email); // Agregar atributo data-email
     datosBody.appendChild(fila);
   });
 }
+
+// Función para ordenar la tabla por nombre
+function ordenarTabla(orden) {
+  let datosCopia = [...datosFiltrados]; // Crear una copia de los datos filtrados
+
+  if (orden === 'asc') {
+    datosCopia.sort((a, b) => a.name.localeCompare(b.name)); // Ordenar la copia por nombre ascendente
+  } else if (orden === 'desc') {
+    datosCopia.sort((a, b) => b.name.localeCompare(a.name)); // Ordenar la copia por nombre descendente
+  } else {
+    datosCopia = [...datosOriginales]; // Mostrar los datos originales sin ordenar
+    datosFiltrados = datosCopia; // Actualizar los datos filtrados
+  }
+
+  MostrarDatosEnTabla(datosCopia); // Mostrar los datos ordenados en la tabla
+}
+
+// Función para buscar por nombre
+function buscarPorNombre() {
+  const inputBuscar = document.getElementById("buscarInput");
+  const filtro = inputBuscar.value.toLowerCase();
+
+  datosFiltrados = datosOriginales.filter((dato) =>
+    dato.name.toLowerCase().includes(filtro)
+  );
+
+  MostrarDatosEnTabla(datosFiltrados);
+}
+
+// Cargar los datos inicialmente
+CargarDatos();
 
 // Función para eliminar un dato
 async function BorrarDato(email) {

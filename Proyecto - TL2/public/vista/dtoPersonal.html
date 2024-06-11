@@ -70,6 +70,10 @@
 
   <div id="datosTable-container">
     <h1>Tabla de datos</h1><br>
+    <input type="text" id="buscarInput" placeholder="Buscar por nombre" onkeyup="buscarPorNombre()">
+    <button onclick="ordenarTabla('asc')">Ordenar por nombre ascendente</button>
+    <button onclick="ordenarTabla('desc')">Ordenar por nombre descendente</button>
+    <button onclick="ordenarTabla('original')">Mostrar datos originales</button>
     <table id="datosTable">
       <thead>
         <tr>

@@ -32,10 +32,10 @@
   {
     "name": "Esteban",
     "lastName": "Cano",
-    "username": "est",
+    "username": "est123",
     "email": "esteban@gmail.com",
     "gender": "Masculino",
-    "birthDate": "2004-08-18",
+    "birthDate": "2004-08-17",
     "password": "juan123",
     "level": "User"
   },
