@@ -354,10 +354,85 @@ app.post("/crearPosts", async (req, res) => {
     const result = await postsCollection.insertOne(newPost);
 
     // Enviar una respuesta al cliente
-    res.status(201).json({ message: "Post creado exitosamente", postId: result.insertedId });
+    res
+      .status(201)
+      .json({ message: "Post creado exitosamente", postId: result.insertedId });
   } catch (error) {
     console.error("Error al crear el post:", error);
     res.status(500).json({ message: "Error al crear el post" });
+  }
+});
+
+app.post("/likePost/:postId", async (req, res) => {
+  try {
+    const db = client.db("BlogiSoft");
+    const postsCollection = db.collection("datosPosts");
+
+    const postId = req.params.postId;
+    const { user } = req.body;
+
+    const post = await postsCollection.findOne({ _id: new ObjectId(postId) });
+
+    if (!post) {
+      return res.status(404).json({ message: "Post no encontrado" });
+    }
+
+    let update;
+    if (post.likedBy.includes(user)) {
+      // Usuario ya dio like, remover like
+      update = {
+        $inc: { likes: -1 },
+        $pull: { likedBy: user },
+      };
+    } else {
+      // Usuario no ha dado like, agregar like
+      update = {
+        $inc: { likes: 1 },
+        $push: { likedBy: user },
+      };
+    }
+
+    await postsCollection.updateOne({ _id: new ObjectId(postId) }, update);
+
+    res.status(200).json({ message: "Like actualizado exitosamente" });
+  } catch (error) {
+    console.error("Error al actualizar el like:", error);
+    res.status(500).json({ message: "Error al actualizar el like" });
+  }
+});
+
+app.get("/obtenerPosts", async (req, res) => {
+  try {
+    const db = client.db("BlogiSoft");
+    const postsCollection = db.collection("datosPosts");
+
+    const posts = await postsCollection.find().toArray();
+
+    res.status(200).json(posts);
+  } catch (error) {
+    console.error("Error al obtener los posts:", error);
+    res.status(500).json({ message: "Error al obtener los posts" });
+  }
+});
+
+app.delete("/borrarPost/:id", async (req, res) => {
+  try {
+    const db = client.db("BlogiSoft");
+    const postsCollection = db.collection("datosPosts");
+
+    const postId = req.params.id;
+    const postIdObject = new ObjectId(postId);
+    const result = await postsCollection.deleteOne({ _id: postIdObject });
+
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ message: "Post no encontrado" });
+    }
+
+    // Enviar una respuesta al cliente
+    res.status(200).json({ message: "Post eliminado exitosamente" });
+  } catch (error) {
+    console.error("Error al borrar el post:", error);
+    res.status(500).json({ message: "Error al borrar el post" });
   }
 });
 
@@ -389,119 +464,20 @@ app.post("/crearComentario", async (req, res) => {
   }
 });
 
-
-app.post("/likePost/:postId", async (req, res) => {
+// Ruta para obtener los comentarios de un post
+app.get("/obtenerComentarios/:postId", async (req, res) => {
   try {
     const db = client.db("BlogiSoft");
     const postsCollection = db.collection("datosPosts");
 
     const postId = req.params.postId;
-    const { user } = req.body;
-
     const post = await postsCollection.findOne({ _id: new ObjectId(postId) });
 
     if (!post) {
       return res.status(404).json({ message: "Post no encontrado" });
     }
 
-    let update;
-    if (post.likedBy.includes(user)) {
-      // Usuario ya dio like, remover like
-      update = {
-        $inc: { likes: -1 },
-        $pull: { likedBy: user }
-      };
-    } else {
-      // Usuario no ha dado like, agregar like
-      update = {
-        $inc: { likes: 1 },
-        $push: { likedBy: user }
-      };
-    }
-
-    await postsCollection.updateOne(
-      { _id: new ObjectId(postId) },
-      update
-    );
-
-    res.status(200).json({ message: "Like actualizado exitosamente" });
-  } catch (error) {
-    console.error("Error al actualizar el like:", error);
-    res.status(500).json({ message: "Error al actualizar el like" });
-  }
-});
-
-
-app.get('/obtenerPosts', async (req, res) => {
-  try {
-    const db = client.db("BlogiSoft");
-    const postsCollection = db.collection("datosPosts");
-
-    const posts = await postsCollection.find().toArray();
-    
-
-    res.status(200).json(posts);
-  } catch (error) {
-    console.error("Error al obtener los posts:", error);
-    res.status(500).json({ message: "Error al obtener los posts" });
-  }
-});
-
-app.delete("/borrarPost/:id", async (req, res) => {
-  try {
-    const db = client.db("BlogiSoft");
-    const postsCollection = db.collection("datosPosts");
-
-    const postId = req.params.id;
-    const postIdObject = new ObjectId(postId);
-    const result = await postsCollection.deleteOne({ _id: postIdObject });
-
-    if (result.deletedCount === 0) {
-      return res.status(404).json({ message: "Post no encontrado" });
-    }
-
-    // Enviar una respuesta al cliente
-    res.status(200).json({ message: "Post eliminado exitosamente" });
-  } catch (error) {
-    console.error("Error al borrar el post:", error);
-    res.status(500).json({ message: "Error al borrar el post" });
-  }
-});
-
-// Ruta para crear un nuevo comentario (post relacionado)
-app.post("/crearComentario", async (req, res) => {
-  try {
-    const db = client.db("BlogiSoft");
-    const commentsCollection = db.collection("datoPosts");
-
-    // Obtener los datos del comentario desde el cuerpo de la solicitud
-    const { postId, content, user } = req.body;
-
-    // Crear el documento del comentario
-    const newComment = {
-      postId: postId, // ID del post original
-      content: content,
-      user: user,
-    };
-
-    // Insertar el nuevo comentario en la colección de comentarios
-    await commentsCollection.insertOne(newComment);
-
-    // Enviar una respuesta al cliente
-    res.status(201).json({ message: "Comentario creado exitosamente" });
-  } catch (error) {
-    console.error("Error al crear el comentario:", error);
-    res.status(500).json({ message: "Error al crear el comentario" });
-  }
-});
-
-app.get('/obtenerComentarios/:postId', async (req, res) => {
-  try {
-    const db = client.db("BlogiSoft");
-    const commentsCollection = db.collection("datosPosts");
-
-    const postId = req.params.postId;
-    const comments = await commentsCollection.find({ postId: postId }).toArray();
+    const comments = post.comments || [];
 
     res.status(200).json(comments);
   } catch (error) {
@@ -510,7 +486,26 @@ app.get('/obtenerComentarios/:postId', async (req, res) => {
   }
 });
 
+app.delete("/borrarComentario/:postId", async (req, res) => {
+  try {
+    const db = client.db("BlogiSoft");
+    const postsCollection = db.collection("datosPosts");
 
+    const { postId } = req.params;
+    const { commentContent, commentUser } = req.body;
+
+    // Actualizar el post para eliminar el comentario
+    await postsCollection.updateOne(
+      { _id: new ObjectId(postId) },
+      { $pull: { comments: { content: commentContent, user: commentUser } } }
+    );
+
+    res.status(200).json({ message: "Comentario eliminado exitosamente" });
+  } catch (error) {
+    console.error("Error al eliminar el comentario:", error);
+    res.status(500).json({ message: "Error al eliminar el comentario" });
+  }
+});
 
 // Iniciar el servidor
 app.listen(port, () => {

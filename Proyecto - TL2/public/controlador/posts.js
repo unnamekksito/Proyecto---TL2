@@ -157,67 +157,23 @@ async function cargarPosts() {
         postElement.appendChild(imageElement);
       }
 
-      // Función para abrir la imagen en un modal
-      // Función para abrir la imagen en un modal con funcionalidad de zoom
-      function openImageModal(imageSrc) {
-        Swal.fire({
-          imageUrl: imageSrc,
-          showConfirmButton: false, // Oculta el botón de confirmación
-          allowOutsideClick: true, // Permite cerrar el modal haciendo clic fuera de él
-          customClass: {
-            popup: "custom-modal-popup", // Clase CSS personalizada para el modal
-          },
-          didOpen: () => {
-            const imageElement = document.querySelector(".swal2-image");
-
-            imageElement.addEventListener("wheel", function (event) {
-              event.preventDefault();
-              const delta = Math.max(-1, Math.min(1, (event.deltaY  -event.detail)));
-              const zoomValue = parseInt(this.style.zoom||100);
-              const newZoomValue = zoomValue + delta * 10; // Ajusta la velocidad de zoom según sea necesario
-              this.style.zoom = `${newZoomValue}%`;
-            });
-          }
-        });
-      }
-
       const likeButton = document.createElement("button");
       likeButton.classList.add("like-button");
-      likeButton.innerHTML = `<i class="fas fa-thumbs-up"></i> <span>${post.likes ?? 0}</span>`;
+      likeButton.innerHTML = `<i class="fas fa-thumbs-up"></i> <span>${
+        post.likes ?? 0
+      }</span>`;
       likeButton.addEventListener("click", () => handleLike(post._id));
       headerElement.appendChild(likeButton);
 
       const commButton = document.createElement("button");
       commButton.classList.add("comment-button");
-      commButton.innerHTML = `<i class="fas fa-comments"></i> <span>${post.comments?.length ?? 0}</span>`;
+      commButton.innerHTML = `<i class="fas fa-comments"></i> <span>${
+        post.comments?.length ?? 0
+      }</span>`;
       commButton.addEventListener("click", () => {
         openCommentModal(post._id);
       });
       headerElement.appendChild(commButton);
-
-      // Mostrar los comentarios debajo del post
-      const commentsContainer = document.createElement("div");
-      commentsContainer.classList.add("comments-container");
-      if (Array.isArray(post.comments)){
-        post.comments?.forEach(comment => {
-          const commentElement = document.createElement("div");
-          commentElement.classList.add("comment");
-  
-          const commentUser = document.createElement("p");
-          commentUser.classList.add("comment-user");
-          commentUser.textContent = `Usuario: ${comment.user}`;
-  
-          const commentContent = document.createElement("p");
-          commentContent.classList.add("comment-content");
-          commentContent.textContent = comment.content;
-  
-          commentElement.appendChild(commentUser);
-          commentElement.appendChild(commentContent);
-          commentsContainer.appendChild(commentElement);
-        });
-      }
-
-      postElement.appendChild(commentsContainer);
 
       container.appendChild(postElement);
     });
@@ -226,6 +182,28 @@ async function cargarPosts() {
   }
 }
 
+// Función para abrir la imagen en un modal con funcionalidad de zoom
+function openImageModal(imageSrc) {
+  Swal.fire({
+    imageUrl: imageSrc,
+    showConfirmButton: false, // Oculta el botón de confirmación
+    allowOutsideClick: true, // Permite cerrar el modal haciendo clic fuera de él
+    customClass: {
+      popup: "custom-modal-popup", // Clase CSS personalizada para el modal
+    },
+    didOpen: () => {
+      const imageElement = document.querySelector(".swal2-image");
+
+      imageElement.addEventListener("wheel", function (event) {
+        event.preventDefault();
+        const delta = Math.max(-1, Math.min(1, event.deltaY - event.detail));
+        const zoomValue = parseInt(this.style.zoom || 100);
+        const newZoomValue = zoomValue + delta * 10; // Ajusta la velocidad de zoom según sea necesario
+        this.style.zoom = `${newZoomValue}%`;
+      });
+    },
+  });
+}
 
 async function handleLike(postId) {
   const user = localStorage.getItem("username");
@@ -275,47 +253,83 @@ async function borrarPost(postId) {
     console.error("Error al borrar el post:", error);
   }
 }
+
 async function openCommentModal(postId) {
   try {
-    const { value: commentContent } = await Swal.fire({
-      title: "Nuevo Comentario",
-      input: "textarea",
-      inputLabel: "Ingresa tu comentario",
-      inputPlaceholder: "Escribe tu comentario aquí...",
-      showCancelButton: true,
-      confirmButtonText: "Publicar",
-      cancelButtonText: "Cancelar",
-      inputValidator: (value) => {
-        if (!value) {
-          return "Debes ingresar un comentario";
+    const userLevel = localStorage.getItem("userLevel");
+
+    // Obtener los comentarios del post
+    const response = await fetch(`/obtenerComentarios/${postId}`);
+    const comments = await response.json();
+
+    // Crear HTML para los comentarios
+    let commentsHtml = comments
+      .map(
+        (comment) => `
+      <div class="comment">
+        <p class="comment-user">Usuario: ${comment.user}</p>
+        <p class="comment-content">${comment.content}</p>
+        ${
+          userLevel === "Admin"
+            ? `<button class="delete-button" onclick="borrarComentario('${postId}', '${comment.content}', '${comment.user}')"><i class="fas fa-trash-alt"></i></button>`
+            : ""
         }
+      </div>
+    `
+      )
+      .join("");
+
+    // Mostrar el modal con los comentarios y botones de acción
+    await Swal.fire({
+      title: "Comentarios",
+      html: commentsHtml,
+      showCancelButton: true,
+      confirmButtonText: "Publicar comentario",
+      cancelButtonText: "Cerrar",
+      preConfirm: () => {
+        // Cambiar el contenido del modal para mostrar el campo de nuevo comentario
+        return Swal.fire({
+          title: "Nuevo Comentario",
+          input: "textarea",
+          inputLabel: "Ingresa tu comentario",
+          inputPlaceholder: "Escribe tu comentario aquí...",
+          showCancelButton: true,
+          confirmButtonText: "Publicar",
+          cancelButtonText: "Cancelar",
+          inputValidator: (value) => {
+            if (!value) {
+              return "Debes ingresar un comentario";
+            }
+          },
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            const newCommentContent = result.value;
+            const user = localStorage.getItem("username");
+
+            const commentData = {
+              postId: postId,
+              content: newCommentContent,
+              user: user,
+            };
+
+            await saveComment(commentData);
+            Swal.fire({
+              title: "Éxito",
+              text: "Comentario publicado exitosamente",
+              icon: "success",
+              confirmButtonText: "Aceptar",
+            }).then(() => {
+              location.reload();
+            });
+          }
+        });
       },
     });
-
-    if (commentContent) {
-      const user = localStorage.getItem("username");
-
-      const commentData = {
-        postId: postId,
-        content: commentContent,
-        user: user,
-      };
-
-      await saveComment(commentData);
-      Swal.fire({
-        title: "Éxito",
-        text: "Los datos se han editado correctamente",
-        icon: "success",
-        confirmButtonText: "Aceptar",
-      }).then(() => {
-        location.reload(); // Recargar la página después de cerrar la alerta
-      });
-    }
   } catch (error) {
     console.error("Error al abrir el modal de comentario:", error);
   }
-  
 }
+
 async function saveComment(commentData) {
   try {
     const response = await fetch("/crearComentario", {
@@ -335,39 +349,39 @@ async function saveComment(commentData) {
     console.error("Error al guardar el comentario:", error);
     throw error;
   }
-  
 }
 
-// Función para obtener y mostrar comentarios para un post específico
-async function obtenerComentarios(commentIds) {
+async function borrarComentario(postId, commentContent, commentUser) {
   try {
-    const container = document.getElementById("small-posts-container");
-    container.innerHTML = ""; // Limpiar el contenedor
+    const response = await fetch(`/borrarComentario/${postId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ commentContent, commentUser }),
+    });
 
-    const comments = await Promise.all(commentIds.map(async (commentId) => {
-      const response = await fetch(`/obtenerComentario/${commentId}`);
-      return response.json();
-    }));
+    if (!response.ok) {
+      throw new Error("Error al borrar el comentario.");
+    }
 
-    comments.forEach((comment) => {
-      const commentElement = document.createElement("div");
-      commentElement.classList.add("small-post");
-
-      const userElement = document.createElement("p");
-      userElement.textContent = `Usuario: ${comment.user}`;
-      commentElement.appendChild(userElement);
-
-      const contentElement = document.createElement("p");
-      contentElement.textContent = comment.content;
-      commentElement.appendChild(contentElement);
-
-      container.appendChild(commentElement);
-      
+    Swal.fire({
+      title: "Éxito",
+      text: "Comentario eliminado exitosamente",
+      icon: "success",
+      confirmButtonText: "Aceptar",
+    }).then(() => {
+     location.reload();
     });
   } catch (error) {
-    console.error("Error al obtener los comentarios:", error);
+    console.error("Error al borrar el comentario:", error);
+    Swal.fire({
+      title: "Error",
+      text: "No se pudo borrar el comentario.",
+      icon: "error",
+      confirmButtonText: "Aceptar",
+    });
   }
 }
-
 
 document.addEventListener("DOMContentLoaded", cargarPosts);
