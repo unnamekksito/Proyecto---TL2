@@ -213,6 +213,7 @@ async function CargarDatos() {
 // Función para mostrar los datos en la tabla
 function MostrarDatosEnTabla(datos) {
   const datosBody = document.getElementById("datosBody");
+  const loggedInUsername = localStorage.getItem("username");
   datosBody.innerHTML = ""; // Limpiar tabla antes de agregar nuevos datos
 
   datos.forEach((dato) => {
@@ -227,7 +228,7 @@ function MostrarDatosEnTabla(datos) {
       <td>${dato.birthDate}</td>
       <td>${dato.email}</td>
       <td class="acciones">
-        <button onclick="BorrarDato('${dato.email}')"><i class="fas fa-trash-alt"></i></button>
+        ${dato.username !== loggedInUsername ? `<button onclick="BorrarDato('${dato.email}')"><i class="fas fa-trash-alt"></i></button>` : ''}
         <button onclick="HabilitarCampos('${dato.email}')"><i class="fas fa-edit"></i></button>
       </td>
     `;
