@@ -76,9 +76,7 @@ app.get("/obtenerDatos", async (req, res) => {
 // Ruta para manejar la solicitud de registro
 app.post("/registro", async (req, res) => {
   try {
-    const { name, lastName, username, email, gender, birthDate, password } =
-      req.body;
-
+    const { name, lastName, username, email, gender, birthDate, password } = req.body;
     const level = "User";
 
     // Obtener la ruta absoluta del archivo datos.json
@@ -98,13 +96,22 @@ app.post("/registro", async (req, res) => {
     }
 
     // Verificar si el usuario ya existe
-    const usuarioExistente = registrosExistentes.find(
-      (user) => user.username === username
-    );
+    console.log(user.username)
+    const usuarioExistente = registrosExistentes.find(user => user.username === username);
     if (usuarioExistente) {
       return res.status(400).json({
         success: false,
         message: "El nombre de usuario ya está en uso",
+      });
+    }
+
+    console.log(user.email)
+    // Verificar si el email ya existe
+    const emailExistente = registrosExistentes.find(user => user.email === email);
+    if (emailExistente) {
+      return res.status(400).json({
+        success: false,
+        message: "El correo electrónico ya está en uso",
       });
     }
 
@@ -180,27 +187,42 @@ app.post("/login", async (req, res) => {
 app.post("/guardarDatos", async (req, res) => {
   try {
     const datos = req.body;
-    // Obtener la ruta absoluta del archivo datos.json
     const filePath = path.join(__dirname, "public", "modelo", "datos.json");
 
-    let registrosExistente = [];
+    let registrosExistentes = [];
     try {
-      // Intentar leer los datos actuales del archivo JSON
       const data = await fs.readFile(filePath, "utf-8");
-      registrosExistente = JSON.parse(data);
-      if (!Array.isArray(registrosExistente)) {
-        registrosExistente = []; // Si los datos no son un array válido, inicializamos registrosExistente como un array vacío
+      registrosExistentes = JSON.parse(data);
+      if (!Array.isArray(registrosExistentes)) {
+        registrosExistentes = [];
       }
     } catch (error) {
-      // Si el archivo no existe o hay un error al leerlo, dejamos los registros existentes como un array vacío
       console.error("Error al leer los datos del archivo JSON:", error);
     }
 
-    // Agregar el nuevo registro
-    registrosExistente.push(datos);
+    const usuarioExistente = registrosExistentes.find(
+      (user) => user.username === datos.username
+    );
+    if (usuarioExistente) {
+      return res.status(400).json({
+        success: false,
+        message: "El nombre de usuario ya está en uso",
+      });
+    }
 
-    // Escribir los datos actualizados en el archivo JSON
-    await fs.writeFile(filePath, JSON.stringify(registrosExistente, null, 2));
+    const emailExistente = registrosExistentes.find(
+      (user) => user.email === datos.email
+    );
+    if (emailExistente) {
+      return res.status(400).json({
+        success: false,
+        message: "El correo electrónico ya está en uso",
+      });
+    }
+
+    registrosExistentes.push(datos);
+
+    await fs.writeFile(filePath, JSON.stringify(registrosExistentes, null, 2));
 
     console.log("Datos agregados correctamente al archivo JSON.");
     res.sendStatus(200);

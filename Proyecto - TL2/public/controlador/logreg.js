@@ -81,7 +81,6 @@ document.addEventListener("DOMContentLoaded", function () {
   //Fin form login o registro
 
   //Logica para registrar usuario
-  // Definir la función RegistrarUsuario en el ámbito global o adjuntarla a window
   window.RegistrarUsuario = function () {
     const name = document.getElementById("name").value.trim();
     const lastName = document.getElementById("last-name").value.trim();
@@ -135,6 +134,15 @@ document.addEventListener("DOMContentLoaded", function () {
             }).then(() => {
               location.reload(); // Recargar la página después de aceptar el mensaje
             });
+          } else if (response.status === 400) {
+            return response.json().then((data) => {
+              Swal.fire({
+                title: "Error",
+                text: data.message,
+                icon: "error",
+                confirmButtonText: "Aceptar",
+              });
+            });
           } else {
             console.error("Error en la respuesta:", response.statusText);
             throw new Error("Error al registrarse");
@@ -183,7 +191,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Decodificar el token para obtener el nivel de usuario
         const decodedToken = jwtDecode(data.token);
-        const userToken =decodedToken.username;
+        const userToken = decodedToken.username;
         const userLevel = decodedToken.level;
 
         // Almacenar el usuario y nivel de usuario en el localStorage
@@ -358,6 +366,14 @@ document.addEventListener("DOMContentLoaded", function () {
         }).then(() => {
           location.reload(); // Recargar la página después de cerrar la alerta
         });
+      } else if (response.status === 400) {
+        const errorData = await response.json();
+        Swal.fire({
+          title: "Error",
+          text: errorData.message,
+          icon: "error",
+          confirmButtonText: "Aceptar",
+        });
       } else {
         throw new Error("Error al enviar los datos al servidor");
       }
@@ -371,6 +387,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
   }
+
   async function CargarDatos() {
     try {
       const response = await fetch("/obtenerDatos");
