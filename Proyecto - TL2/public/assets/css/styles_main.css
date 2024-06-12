@@ -100,3 +100,37 @@ body {
   transform: scale(1.05);
   opacity: 1;
 }
+
+
+@media (max-width: 768px) {
+  .logout-button a {
+    font-size: 30px; /* Tamaño de fuente más pequeño para dispositivos móviles */
+  }
+
+  .title {
+    font-size: 4vmin; /* Tamaño de fuente adaptable basado en el tamaño de la ventana */
+  }
+
+  .left-buttons a,
+  .right-button a {
+    font-size: 4vmin; /* Tamaño de fuente adaptable para los botones */
+    padding: 0.8rem 1.6rem; /* Espaciado reducido para los botones */
+  }
+}
+
+@media (max-width: 480px) {
+  /* Estilos específicos para pantallas estrechas */
+  .logout-button a {
+    font-size: 24px; /* Tamaño de fuente más pequeño */
+  }
+
+  .title {
+    font-size: 3vmin; /* Tamaño de fuente adaptable */
+  }
+
+  .left-buttons a,
+  .right-button a {
+    font-size: 3vmin; /* Tamaño de fuente adaptable para botones */
+    padding: 0.6rem 1.2rem; /* Espaciado reducido */
+  }
+}
