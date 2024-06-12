@@ -220,7 +220,7 @@ i {
 
     .input-field .input,
     .submit {
-        width: 95%;
+        width: 75%;
     }
 
     .inline-fields {
@@ -228,8 +228,9 @@ i {
         gap: 20px;
     }
 
-    .inline-fields .input-field {
-        width: 100%;
+.inline-fields .input-field {
+        width: 100%; /* En pantallas pequeñas, los campos ocupan todo el ancho */
+        margin-bottom: 10px; /* Añade un margen inferior para separar los campos */
     }
 }
 
@@ -256,6 +257,11 @@ i {
         width: 100%;
     }
 
+    .input-field .input {
+        height: 40px; /* Ajusta la altura en pantallas más pequeñas */
+        padding: 0 10px 0 30px; /* Ajusta el padding en pantallas más pequeñas */
+    }
+
     .inline-fields {
         flex-direction: column;
         gap: 15px;
@@ -263,6 +269,138 @@ i {
 
     .inline-fields .input-field {
         width: 100%;
+    }
+
+    .register-section button,
+    .login-section button {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 375px) {
+    .top-header span:first-child {
+        font-size: 1.2rem;
+    }
+
+    .top-header span:last-child {
+        font-size: 0.8rem;
+    }
+
+    span {
+        font-size: 0.9rem;
+    }
+
+    .container {
+        max-width: 250px;
+        padding: 15px;
+    }
+
+    .input-field .input,
+    .submit {
+        width: 88%;
+    }
+
+    .input-field .input {
+        height: 40px; /* Ajusta la altura en pantallas más pequeñas */
+        padding: 0 10px 0 30px; /* Ajusta el padding en pantallas más pequeñas */
+    }
+
+    .inline-fields {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .inline-fields .input-field {
+        width: 88%;
+    }
+
+    .register-section button,
+    .login-section button {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 430px) {
+    .top-header span:first-child {
+        font-size: 1.2rem;
+    }
+
+    .top-header span:last-child {
+        font-size: 0.8rem;
+    }
+
+    span {
+        font-size: 0.9rem;
+    }
+
+    .container {
+        max-width: 250px;
+        padding: 15px;
+    }
+
+    .input-field .input,
+    .submit {
+        width: 70%;
+    }
+
+    .input-field .input {
+        height: 40px; /* Ajusta la altura en pantallas más pequeñas */
+        padding: 0 10px 0 30px; /* Ajusta el padding en pantallas más pequeñas */
+    }
+
+    .inline-fields {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .inline-fields .input-field {
+        width: 70%;
+    }
+
+    .register-section button,
+    .login-section button {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 414px) {
+    .top-header span:first-child {
+        font-size: 1.2rem;
+    }
+
+    .top-header span:last-child {
+        font-size: 0.8rem;
+    }
+
+    span {
+        font-size: 0.9rem;
+    }
+
+    .container {
+        max-width: 250px;
+        padding: 15px;
+    }
+
+    .input-field .input,
+    .submit {
+        width: 70%;
+    }
+
+    .input-field .input {
+        height: 40px; /* Ajusta la altura en pantallas más pequeñas */
+        padding: 0 10px 0 30px; /* Ajusta el padding en pantallas más pequeñas */
+    }
+
+    .inline-fields {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .inline-fields .input-field {
+        width: 70%;
     }
 
     .register-section button,
