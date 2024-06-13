@@ -2,7 +2,7 @@ function openPostModal() {
   Swal.fire({
     title: "Nuevo Post",
     html: `
-        <input id="postTitle" class="swal2-input" placeholder="Título del post">
+        <input id="postTitle" class="swal2-input" placeholder="Título del post" maxlength="50">
         <textarea id="postContent" class="swal2-textarea" placeholder="Contenido del post"></textarea>
         <input id="postImage" type="file" class="swal2-file" accept="image/*" placeholder="Subir imagen (opcional)">
       `,
@@ -21,7 +21,7 @@ function openPostModal() {
     },
   }).then((result) => {
     if (result.isConfirmed) {
-      console.log(result.value);
+      Swal.showValidationMessage("Post publicado");;
       // Aquí puedes enviar el post al servidor con los datos obtenidos
       submitPost(result.value);
     }
