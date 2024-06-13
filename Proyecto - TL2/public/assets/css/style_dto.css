@@ -384,7 +384,13 @@ footer {
 }
 
 /* Media Queries */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 850px) {
+  
+header {
+  position: relative;
+  width: 100%; 
+
+}
   header h1 {
     font-size: 1.5rem;
   }
@@ -398,17 +404,63 @@ footer {
   }
 }
 
-@media screen and (max-width: 576px) {
-  header h1 {
-    font-size: 1.2rem;
+@media screen and (max-width: 768px) {
+  header,header h1{
+    position: fixed;
+    width: 100%; 
+  
+  }
+  header h1,
+  header span,
+  .home-button a{
+    font-size: 16px;
   }
 
+  .home-button {
+    right: 5px;
+    top: 5px;
+  }
+  .navbar {
+    width: 150px;
+    left: -150px;
+  }
+
+  .nava li {
+    font-size: 16px;
+    margin: 5px 5px;
+  }
+  .slider-container {
+    max-width: 80px;
+    padding-left: 20px;
+  }
+  .slider img {
+    width: 40px;
+  }
+  .prev,
+  .next {
+    padding: 5px;
+  }
+
+  .menu {
+    font-size: 16px;
+    top: 5px;
+    left: 5px;
+  }
   .container {
-    padding: 10px;
+    max-width: 100%;
+    margin: 10px auto;
+    padding: 5px;
   }
+  #datosTable-container {
 
+    padding-top: 100px;
+    padding-bottom: 100px;
+  }
   footer {
+    position: fixed;
+    width: 100%; 
     padding: 10px;
+    bottom: 0;
   }
 
   .respmenu a {
@@ -417,30 +469,5 @@ footer {
     border-bottom: 1px solid #456789;
     max-width: 200px;
     min-width: 30px;
-  }
-}
-
-@media only screen and (max-width: 400px) {
-  .container {
-    padding: 10px;
-  }
-
-  form input,
-  form select {
-    width: calc(100% - 20px);
-  }
-
-  table {
-    width: 100%;
-    margin-top: 20px;
-    border-collapse: collapse;
-    border-spacing: 0; /* Agregado para eliminar el espaciado entre celdas */
-  }
-
-  table th,
-  table td {
-    text-align: left;
-    padding: 8px; /* Reducido el padding para reducir el espacio entre las celdas */
-    border-bottom: 1px solid #ccc;
   }
 }
