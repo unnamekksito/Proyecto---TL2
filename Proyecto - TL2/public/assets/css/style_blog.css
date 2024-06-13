@@ -11,7 +11,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  width: 100%; 
+  width: 100%;
 }
 
 header {
@@ -200,11 +200,21 @@ header span {
   right: 0;
 }
 
+.cuerpo {
+  background-image: linear-gradient(
+    to bottom,
+    rgba(0, 93, 158, 0.5) 0%,
+  #025f91 50%,
+    rgba(0, 93, 158, 0.5) 100%
+
+  );
+}
+
 .container {
   max-width: 800px;
   margin: 50px auto;
   padding: 20px;
-  width: 100%; 
+  width: 100%;
 }
 
 .post-container {
@@ -220,20 +230,12 @@ header span {
   flex-direction: column;
   justify-content: flex-start;
   margin-bottom: 20px;
-  padding: 20px;
-  border-radius: 8px;
-  background-color: #fff;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-  position: relative;
-}
-
-.post {
   position: relative;
   margin-bottom: 20px;
   padding: 20px;
   border-radius: 8px;
-  background-color: #fff;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  background-color: #0275b3c5
 }
 
 .post-header {
@@ -250,18 +252,17 @@ header span {
   right: 10px; /* Ajusta la distancia desde la derecha */
   background: none;
   border: none;
-  color: #007bff;
+  color: #fff;
   font-size: 1.2em;
   padding: 0;
 }
-
 
 .like-button i {
   margin-right: 5px;
 }
 
 .like-button:hover {
-  color: #0056b3;
+  color: #cccccc;
 }
 
 .like-button span {
@@ -275,7 +276,7 @@ header span {
   left: 10px;
   background: none;
   border: none;
-  color: #007bff; /* Color azul */
+  color: #ffffff; /* Color azul */
   font-size: 1.2em;
   padding: 0;
 }
@@ -283,10 +284,7 @@ header span {
   margin-right: 5px;
 }
 .comment-button:hover {
-  color: #0056b3;
-}
-.comment-button:hover {
-  color: #0056b3; /* Color azul oscuro al pasar el mouse */
+  color: #cccccc;
 }
 .comment-button span {
   margin-left: 5px;
@@ -297,7 +295,7 @@ header span {
   font-size: 14px;
   font-weight: bold;
   margin-bottom: 5px;
-  color: #555;
+  color: #ffffff;
 }
 
 .post-title {
@@ -320,13 +318,49 @@ header span {
 }
 
 .custom-modal-popup {
-  width: auto; 
-  max-width: 90%; 
-  padding: 0; 
+  width: auto;
+  max-width: 90%;
+  padding: 0;
 }
 
 .swal2-image {
-  border-radius: 0; 
+  border-radius: 0;
+}
+
+/*Swal para postear*/
+
+/* Estilo personalizado para el modal */
+.custom-post-modal .swal2-popup {
+  font-size: 16px;
+  background-color: #c0b6b6; /* Cambia el color de fondo */
+  border-radius: 10px;
+}
+
+.custom-post-modal .swal2-title {
+  font-family: "Arial", sans-serif; /* Cambia la fuente del título */
+  color: #333; /* Cambia el color del título */
+}
+
+.custom-post-modal .swal2-input,
+.custom-post-modal .swal2-textarea {
+  font-size: 20px; /* Cambia el tamaño de la fuente de los inputs */
+  padding: 30px; /* Añade padding a los inputs */
+  border: 1px solid #ccc; /* Cambia el borde de los inputs */
+  border-radius: 5px; /* Añade bordes redondeados a los inputs */
+}
+
+.custom-post-modal .swal2-file {
+  margin-top: 10px; /* Añade un margen superior al input de archivo */
+}
+
+.custom-post-modal .swal2-confirm {
+  background-color: #4caf50; /* Cambia el color de fondo del botón de confirmar */
+  color: white; /* Cambia el color del texto del botón de confirmar */
+}
+
+.custom-post-modal .swal2-cancel {
+  background-color: #f44336; /* Cambia el color de fondo del botón de cancelar */
+  color: white; /* Cambia el color del texto del botón de cancelar */
 }
 
 .delete-button {
@@ -364,7 +398,6 @@ header span {
   margin: 0;
 }
 
-
 footer {
   margin-top: auto;
   background-image: linear-gradient(
@@ -396,43 +429,29 @@ footer {
   color: #ddd;
 }
 
-
-/* Media Queries para Responsividad */
-
-@media (max-width: 1200px) {
-  .header h1, .header span, .home-button a, .post-button a {
-    font-size: 30px;
-  }
-
-  .post-title {
-    font-size: 18px;
-  }
-
-  .navbar {
-    width: 250px;
-    left: -250px;
-  }
-
-  .navbar.open {
-    left: 0;
-  }
-
-  .nava li {
-    font-size: 30px;
-  }
-}
-
+/* Estilos responsivos */
 @media (max-width: 768px) {
-  .header h1, .header span, .home-button a, .post-button a {
-    font-size: 24px;
+  header h1,
+  header span,
+  .home-button a,
+  .post-button a {
+    font-size: 20px;
   }
 
   .home-button {
-    right: 15px;
+    right: 10px;
+    top: 10px;
   }
 
   .post-button {
-    right: 150px;
+    right: 100px;
+    top: 10px;
+  }
+
+  .menu {
+    font-size: 20px;
+    top: 10px;
+    left: 10px;
   }
 
   .navbar {
@@ -440,34 +459,79 @@ footer {
     left: -200px;
   }
 
-  .navbar.open {
-    left: 0;
-  }
-
   .nava li {
-    font-size: 24px;
+    font-size: 20px;
+    margin: 5px 10px;
   }
 
   .slider-container {
     max-width: 100px;
+    padding-left: 25px;
   }
 
   .slider img {
-    width: 80px;
+    width: 50px;
+  }
+
+  .prev,
+  .next {
+    padding: 5px;
+  }
+
+  .container {
+    max-width: 90%;
+    margin: 20px auto;
+    padding: 10px;
+  }
+
+  .post {
+    padding: 10px;
+  }
+
+  .post-title {
+    font-size: 16px;
+  }
+
+  .post-content {
+    font-size: 14px;
+  }
+
+  .like-button,
+  .comment-button {
+    font-size: 1em;
+  }
+
+  .post-user {
+    font-size: 12px;
+  }
+
+  .post-image {
+    max-width: 50%;
   }
 }
 
 @media (max-width: 480px) {
-  .header h1, .header span, .home-button a, .post-button a {
-    font-size: 18px;
+  header h1,
+  header span,
+  .home-button a,
+  .post-button a {
+    font-size: 16px;
   }
 
   .home-button {
-    right: 10px;
+    right: 5px;
+    top: 5px;
   }
 
   .post-button {
-    right: 100px;
+    right: 80px;
+    top: 5px;
+  }
+
+  .menu {
+    font-size: 16px;
+    top: 5px;
+    left: 5px;
   }
 
   .navbar {
@@ -475,23 +539,53 @@ footer {
     left: -150px;
   }
 
-  .navbar.open {
-    left: 0;
-  }
-
   .nava li {
-    font-size: 18px;
+    font-size: 16px;
+    margin: 5px 5px;
   }
 
   .slider-container {
     max-width: 80px;
+    padding-left: 20px;
   }
 
   .slider img {
-    width: 60px;
+    width: 40px;
+  }
+
+  .prev,
+  .next {
+    padding: 5px;
   }
 
   .container {
-    padding: 10px;
+    max-width: 100%;
+    margin: 10px auto;
+    padding: 5px;
+  }
+
+  .post {
+    padding: 5px;
+  }
+
+  .post-title {
+    font-size: 14px;
+  }
+
+  .post-content {
+    font-size: 12px;
+  }
+
+  .like-button,
+  .comment-button {
+    font-size: 0.8em;
+  }
+
+  .post-user {
+    font-size: 10px;
+  }
+
+  .post-image {
+    max-width: 70%;
   }
 }

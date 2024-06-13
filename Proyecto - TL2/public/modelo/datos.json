@@ -68,5 +68,25 @@
     "birthDate": "2006-06-06",
     "password": "estoymamao123",
     "level": "User"
+  },
+  {
+    "name": "Harold",
+    "lastName": "Ramirez",
+    "username": "Jesuscristo",
+    "email": "rami@gmail.com",
+    "gender": "Masculino",
+    "birthDate": "2003-03-19",
+    "password": "funciona",
+    "level": "User"
+  },
+  {
+    "name": "Harold",
+    "lastName": "Ocampo",
+    "username": "Jesuscristo12",
+    "email": "rami12@gmail.com",
+    "gender": "Masculino",
+    "birthDate": "2005-02-14",
+    "password": "si123456",
+    "level": "User"
   }
 ]
