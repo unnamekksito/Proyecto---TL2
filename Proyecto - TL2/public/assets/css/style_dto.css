@@ -383,64 +383,276 @@ footer {
   color: #ddd;
 }
 
-/* Media Queries */
-@media screen and (max-width: 768px) {
-  header h1 {
-    font-size: 1.5rem;
-  }
-
-  .respmenu a {
-    padding: 8px 12px;
-    font-size: 1rem;
-    border-bottom: 1px solid #456789;
-    max-width: 200px;
-    min-width: 45px;
-  }
-}
-
-@media screen and (max-width: 576px) {
-  header h1 {
-    font-size: 1.2rem;
-  }
-
+/* Estilos responsivos */
+@media (max-width: 1524px) {
   .container {
-    padding: 10px;
-  }
-
-  footer {
-    padding: 10px;
-  }
-
-  .respmenu a {
-    padding: 5px 8px;
-    font-size: 1rem;
-    border-bottom: 1px solid #456789;
-    max-width: 200px;
-    min-width: 30px;
-  }
-}
-
-@media only screen and (max-width: 400px) {
-  .container {
-    padding: 10px;
-  }
-
-  form input,
-  form select {
-    width: calc(100% - 20px);
+    max-width: 1300px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 15px;
+    padding-right: 15px;
   }
 
   table {
     width: 100%;
-    margin-top: 20px;
-    border-collapse: collapse;
-    border-spacing: 0; /* Agregado para eliminar el espaciado entre celdas */
+    max-width: 1300px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow-x: auto; /* Agregamos overflow-x para permitir el desplazamiento horizontal */  
   }
 
-  table th,
-  table td {
-    text-align: left;
-    padding: 8px; /* Reducido el padding para reducir el espacio entre las celdas */
-    border-bottom: 1px solid #ccc;
+}
+
+@media (max-width: 1200px) {
+  .container {
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  table {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    overflow-x: auto; /* Ajustamos también para 1200px */
+    font-size: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    max-width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  table {
+    max-width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    overflow-x: auto; /* Ajustamos para 768px */
+ }
+
+  header h1,
+  header span,
+  .home-button a,
+  .post-button a {
+    font-size: 16px;
+  }
+
+  .home-button {
+    right: 5px;
+    top: 5px;
+  }
+
+  .menu {
+    font-size: 16px;
+    top: 5px;
+    left: 5px;
+  }
+
+  .navbar {
+    width: 150px;
+    left: -150px;
+  }
+
+  .nava li {
+    font-size: 16px;
+    margin: 5px 5px;
+  }
+
+  .slider-container {
+    max-width: 80px;
+    padding-left: 20px;
+  }
+
+  .slider img {
+    width: 40px;
+  }
+
+  .prev,
+  .next {
+    padding: 5px;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  table {
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    overflow-x: auto; /* Ajustamos para 576px */
+  }
+
+  header h1,
+  header span,
+  .home-button a,
+  .post-button a {
+    font-size: 14px;
+  }
+
+  .home-button {
+    right: 5px;
+    top: 5px;
+  }
+
+  .menu {
+    font-size: 14px;
+    top: 5px;
+    left: 5px;
+  }
+
+  .navbar {
+    width: 100px;
+    left: -100px;
+  }
+
+  .nava li {
+    font-size: 14px;
+    margin: 5px 5px;
+  }
+
+  .slider-container {
+    max-width: 60px;
+    padding-left: 15px;
+  }
+
+  .slider img {
+    width: 30px;
+  }
+
+  .prev,
+  .next {
+    padding: 3px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    max-width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  table {
+    max-width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+    overflow-x: auto; /* Ajustamos para 480px */
+  }
+
+  header h1,
+  header span,
+  .home-button a,
+  .post-button a {
+    font-size: 12px;
+  }
+
+  .home-button {
+    right: 3px;
+    top: 3px;
+  }
+
+  .menu {
+    font-size: 12px;
+    top: 3px;
+    left: 3px;
+  }
+
+  .navbar {
+    width: 80px;
+    left: -80px;
+  }
+
+  .nava li {
+    font-size: 12px;
+    margin: 3px 3px;
+  }
+
+  .slider-container {
+    max-width: 50px;
+    padding-left: 10px;
+  }
+
+  .slider img {
+    width: 25px;
+  }
+
+  .prev,
+  .next {
+    padding: 3px;
+  }
+}
+
+@media (max-width: 400px) {
+  .container {
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  table {
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    overflow-x: auto; /* Ajustamos para 400px */
+  }
+
+  header h1,
+  header span,
+  .home-button a,
+  .post-button a {
+    font-size: 10px;
+  }
+
+  .home-button {
+    right: 2px;
+    top: 2px;
+  }
+
+  .menu {
+    font-size: 10px;
+    top: 2px;
+    left: 2px;
+  }
+
+  .navbar {
+    width: 60px;
+    left: -60px;
+  }
+
+  .nava li {
+    font-size: 10px;
+    margin: 2px 2px;
+  }
+
+  .slider-container {
+    max-width: 40px;
+    padding-left: 5px;
+  }
+
+  .slider img {
+    width: 20px;
+  }
+
+  .prev,
+  .next {
+    padding: 2px;
   }
 }
